@@ -27,9 +27,12 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="YOUR_API_KEY" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
 
         <activity
-            android:name=".UI.MainActivity"
+            android:name=".UI.LoginActivity"
             android:exported="true"
             android:label="@string/title_activity_maps">
             <intent-filter>
@@ -38,6 +41,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+      <activity android:name=".UI.AddEmergencyContact"></activity>
+      <activity android:name=".UI.SignupActivity"></activity>
+        <activity android:name=".UI.MainActivity"></activity>
     </application>
 
 </manifest>

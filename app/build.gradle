@@ -24,11 +24,11 @@ android {
             keyAlias 'crashnotifier'
             keyPassword 'android'
             storePassword 'android'
-            storeFile file("/Users/ajit/AndroidStudioProjects/CrashNotifier/app/crashnotifier")
+            storeFile file("C:/Users/alekhyas/AndroidStudioProjects/CrashNotifier/app/crashnotifier")
         }
 
         debug {
-            storeFile file("/Users/ajit/AndroidStudioProjects/CrashNotifier/app/crashnotifier")
+           storeFile file("C:/Users/alekhyas/AndroidStudioProjects/CrashNotifier/app/crashnotifier")
             keyAlias 'crashnotifier'
             keyPassword 'android'
             storePassword 'android'
@@ -80,4 +80,11 @@ dependencies {
     def lifecycle_version = "2.5.1"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+
+
+
+    implementation platform('com.google.firebase:firebase-bom:31.1.0')
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-auth-ktx'
+    implementation 'com.google.firebase:firebase-firestore-ktx'
 }

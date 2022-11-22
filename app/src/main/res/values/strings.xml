@@ -36,8 +36,8 @@
     <string name="done">Done</string>
 
 
-    <string name="menu_nearest_emergency_contacts">Nearest Emergency Contacts</string>
-    <string name="menu_hospital_medical_shops_list">List of Hospitals and Medical shops</string>
+    <string name="nav_menu_nearest_emergency_contacts">Nearest Emergency Contacts</string>
+    <string name="menu_hospital_medical_shops_list">Hospitals and Medical shops</string>
     <string name="menu_update_emergency_contacts">Update Emergency Contacts</string>
     <string name="menu_update_health_details">Update Health Details</string>
     <string name="map_hospital_medical_details">Map With list of hospitals and Medical shops</string>
@@ -52,7 +52,8 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="menu_home">Home</string>
+    <string name="menu_nearst_emergency_contacts">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
+    <string name="title_activity_main2">Main2Activity</string>
 </resources>

@@ -56,7 +56,7 @@ class LoginActivity  : AppCompatActivity() {
         callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
-                startActivity(Intent(applicationContext, MainActivity::class.java))
+                startActivity(Intent(applicationContext, Main2Activity::class.java))
                 finish()
                 Log.d("dashboard" , "onVerificationCompleted Success")
             }
@@ -84,7 +84,7 @@ class LoginActivity  : AppCompatActivity() {
         auth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                   val intent = Intent(this , MainActivity::class.java)
+                   val intent = Intent(this , Main2Activity::class.java)
                     startActivity(intent)
                     finish()
                 } else {

@@ -12,7 +12,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CrashNotifier"
         tools:targetApi="31">
+        <activity
+            android:name=".UI.Main2Activity"
+            android:exported="true"
+            android:label="@string/title_activity_main2"
+            android:theme="@style/Theme.CrashNotifier.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <!--
              TODO: Before you run your application, you need a Google Maps API key.
 
@@ -31,7 +45,7 @@
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity
+       <!-- <activity
             android:name=".UI.LoginActivity"
             android:exported="true"
             android:label="@string/title_activity_maps">
@@ -40,10 +54,10 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-      <activity android:name=".UI.AddEmergencyContact"></activity>
-      <activity android:name=".UI.SignupActivity"></activity>
-        <activity android:name=".UI.MainActivity"></activity>
+        </activity>-->
+        <activity android:name=".UI.AddEmergencyContact" />
+        <activity android:name=".UI.SignupActivity" />
+        <activity android:name=".UI.LoginActivity" />
     </application>
 
 </manifest>

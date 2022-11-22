@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
     id 'kotlin-kapt'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -18,11 +19,29 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+    signingConfigs {
+        release {
+            keyAlias 'crashnotifier'
+            keyPassword 'android'
+            storePassword 'android'
+            storeFile file("/Users/ajit/AndroidStudioProjects/CrashNotifier/app/crashnotifier")
+        }
 
+        debug {
+            storeFile file("/Users/ajit/AndroidStudioProjects/CrashNotifier/app/crashnotifier")
+            keyAlias 'crashnotifier'
+            keyPassword 'android'
+            storePassword 'android'
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            signingConfig signingConfigs.release
         }
     }
     compileOptions {
@@ -52,6 +71,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.7.0'
     implementation 'com.google.android.gms:play-services-maps:18.0.2'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'com.google.firebase:firebase-database:20.0.4'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'

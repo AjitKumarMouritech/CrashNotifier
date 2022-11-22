@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "791177879135",
+    "project_id": "crashnotifier-d7525",
+    "storage_bucket": "crashnotifier-d7525.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:791177879135:android:d7ef8a1c6c9109a68145ea",
+        "android_client_info": {
+          "package_name": "com.mouritech.crashnotifier"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "791177879135-2i2639pf5ud14n97mhedfr5crpa0i1kb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mouritech.crashnotifier",
+            "certificate_hash": "2614a798bd9181214d9f97255144473c6b7feb05"
+          }
+        },
+        {
+          "client_id": "791177879135-61m9v8ubn5r69dncv3mt3f69qjmdmu2q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGz0kBziJQEN7UCr8MnP9LGNKwObSOITU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "791177879135-61m9v8ubn5r69dncv3mt3f69qjmdmu2q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -8,24 +8,28 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.FirebaseApp
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.*
 import com.mouritech.crashnotifier.R
+import com.mouritech.crashnotifier.data.viewmodel.LoginViewModel
 import com.mouritech.crashnotifier.databinding.ActivityLoginBinding
 import java.util.concurrent.TimeUnit
 
 class LoginActivity  : AppCompatActivity() {
     lateinit var binding:ActivityLoginBinding
-    var number : String =""
     lateinit var auth: FirebaseAuth
     lateinit var storedVerificationId:String
     lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
     private lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
     lateinit var progress : ProgressDialog
+    lateinit var loginViewModel: LoginViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        loginViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
         FirebaseApp.initializeApp(this)
         auth=FirebaseAuth.getInstance()
@@ -39,14 +43,26 @@ class LoginActivity  : AppCompatActivity() {
         }
 
         binding.sendOTP.setOnClickListener {
-            login()
+            displayProgressBar()
+            loginViewModel!!.mobileNumber.value = binding.mobileNumber.text?.trim().toString()
+
+            if (loginViewModel!!.isMobileNumberValid()){
+                var number = loginViewModel!!.mobileNumber.value.toString()
+                number = "+91$number"
+                sendVerificationCode(number)
+            }
+            else{
+                progress.hide()
+                Toast.makeText(this,"Enter valid mobile number", Toast.LENGTH_SHORT).show()
+            }
         }
 
         binding.submit.setOnClickListener {
-            val otp =binding.enterOTP.text?.trim().toString()
-            if(otp.isNotEmpty()){
+            loginViewModel!!.otp.value =binding.enterOTP.text?.trim().toString()
+
+            if(loginViewModel!!.isOTPValid()){
                 val credential : PhoneAuthCredential = PhoneAuthProvider.getCredential(
-                    storedVerificationId.toString(), otp)
+                    storedVerificationId.toString(), loginViewModel!!.otp.value.toString())
                 signInWithPhoneAuthCredential(credential)
             }else{
                 Toast.makeText(this,"Enter OTP", Toast.LENGTH_SHORT).show()
@@ -62,6 +78,7 @@ class LoginActivity  : AppCompatActivity() {
             }
 
             override fun onVerificationFailed(e: FirebaseException) {
+                progress.hide()
                 Log.d("login" , "onVerificationFailed $e")
             }
             override fun onCodeSent(
@@ -96,16 +113,6 @@ class LoginActivity  : AppCompatActivity() {
 
     }
 
-    private fun login() {
-        number = binding.mobileNumber.text?.trim().toString()
-        if (number.isNotEmpty()){
-            number = "+91$number"
-            displayProgressBar()
-            sendVerificationCode(number)
-        }else{
-            Toast.makeText(this,"Enter mobile number", Toast.LENGTH_SHORT).show()
-        }
-    }
 
     private fun displayProgressBar() {
         progress = ProgressDialog(this);

@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="quotes"
-            type="String" />
+            name="LoginViewModel"
+            type="com.mouritech.crashnotifier.data.viewmodel.LoginViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -45,6 +45,9 @@
                     android:layout_height="match_parent"
                     android:hint="@string/mobile_number"
                     android:background="@null"
+                    android:maxLength="10"
+                    android:inputType="number"
+                    android:text="@={LoginViewModel.mobileNumber}"
                     style="@style/MobileNumber"/>
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -93,6 +96,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="@string/enter_otp"
+                    android:text="@={LoginViewModel.otp}"
                     android:background="@null"
                     app:layout_constraintStart_toStartOf="parent"
                     style="@style/MobileNumber" />

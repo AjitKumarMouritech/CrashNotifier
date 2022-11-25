@@ -52,6 +52,7 @@ class LoginActivity  : AppCompatActivity() {
             }
             else{
                 progress.hide()
+                binding.mobileNumber.setText("")
                 Toast.makeText(this,"Enter valid mobile number", Toast.LENGTH_SHORT).show()
             }
         }

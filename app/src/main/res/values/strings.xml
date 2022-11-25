@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">CrashNotifier</string>
+    <string name="app_description">Crash Notifier is a mobile application which is designed to uses location and sensor readings from the accelerometer and microphone to detect car crashes.</string>
     <string name="title_activity_maps">MapsActivity</string>
     <string name="mobile_number">Mobile Number</string>
     <string name="send_otp">Send OTP</string>

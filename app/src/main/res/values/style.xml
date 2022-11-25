@@ -61,4 +61,17 @@
         <item name="boxStrokeColor">@color/box_stroke_color</item>
         <item name="boxStrokeWidth">1dp</item>
     </style>-->
+
+    <style name="roundedImageViewRounded">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="SplashHeading" parent="RegularBlue">
+        <item name="android:textSize">@dimen/splash_heading_text_size</item>
+    </style>
+
+    <style name="SplashHeadingDescription" parent="RegularBlack">
+        <item name="android:textSize">@dimen/login_mobile_text_size</item>
+    </style>
 </resources>

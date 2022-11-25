@@ -14,17 +14,17 @@ import com.google.firebase.FirebaseException
 import com.google.firebase.auth.*
 import com.mouritech.crashnotifier.R
 import com.mouritech.crashnotifier.data.viewmodel.LoginViewModel
+import com.mouritech.crashnotifier.data.viewmodel.SignupViewModel
 import com.mouritech.crashnotifier.databinding.ActivityLoginBinding
 import java.util.concurrent.TimeUnit
 
 class LoginActivity  : AppCompatActivity() {
+
     lateinit var binding:ActivityLoginBinding
-    lateinit var auth: FirebaseAuth
     lateinit var storedVerificationId:String
     lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
-    private lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
-    lateinit var progress : ProgressDialog
     lateinit var loginViewModel: LoginViewModel
+    lateinit var signupViewModel: SignupViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,9 +47,8 @@ class LoginActivity  : AppCompatActivity() {
             loginViewModel!!.mobileNumber.value = binding.mobileNumber.text?.trim().toString()
 
             if (loginViewModel!!.isMobileNumberValid()){
-                var number = loginViewModel!!.mobileNumber.value.toString()
-                number = "+91$number"
-                sendVerificationCode(number)
+
+               loginViewModel.checkDuplication(this@LoginActivity,)
             }
             else{
                 progress.hide()
@@ -101,6 +100,7 @@ class LoginActivity  : AppCompatActivity() {
         auth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
+                    successfullyLoggedIn("LoggedIn",true)
                    val intent = Intent(this , MainActivity::class.java)
                     startActivity(intent)
                     finish()
@@ -113,6 +113,13 @@ class LoginActivity  : AppCompatActivity() {
 
     }
 
+    private fun successfullyLoggedIn(key: String, value: Boolean) {
+        val sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE)
+        val myEdit = sharedPreferences.edit()
+        myEdit.putInt("login", 2)
+        myEdit.commit()
+    }
+
 
     private fun displayProgressBar() {
         progress = ProgressDialog(this);
@@ -122,15 +129,9 @@ class LoginActivity  : AppCompatActivity() {
         progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progress.show()
     }
-
-    private fun sendVerificationCode(number: String) {
-        val options = PhoneAuthOptions.newBuilder(auth)
-            .setPhoneNumber(number)
-            .setTimeout(60L, TimeUnit.SECONDS)
-            .setActivity(this)
-            .setCallbacks(callbacks)
-            .build()
-        PhoneAuthProvider.verifyPhoneNumber(options)
-        Log.d("login" , "Auth started")
+    companion object{
+        lateinit var auth: FirebaseAuth
+        lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
+        lateinit var progress : ProgressDialog
     }
 }

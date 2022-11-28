@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "791177879135",
+    "firebase_url": "https://crashnotifier-d7525-default-rtdb.firebaseio.com",
     "project_id": "crashnotifier-d7525",
     "storage_bucket": "crashnotifier-d7525.appspot.com"
   },

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+   <!-- <style name="MyTheme" parent="android:Theme.Light">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@color/translucent_red</item>
+        <item name="android:listViewStyle">@style/MyListView</item>
+    </style>-->
+    <style name="RegularBlack">
+        <item name="android:textColor">@color/black</item>
+        <item name="fontFamily">@font/muli</item>
+    </style>
+
+    <style name="RegularBlue">
+        <item name="android:textColor">@color/text_blue</item>
+        <item name="fontFamily">@font/crimson_pro_medium</item>
+    </style>
+
+    <style name="MobileNumber" parent="RegularBlack">
+        <item name="android:textSize">@dimen/login_mobile_text_size</item>
+    </style>
+
+    <style name="OtpText" parent="RegularBlue">
+        <item name="android:textSize">@dimen/blue_text_size</item>
+    </style>
+
+    <style name="Heading" parent="RegularBlue">
+        <item name="android:textSize">@dimen/heading_text_size</item>
+    </style>
+
+    <style name="HeadingWhite">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/heading_text_size</item>
+        <item name="fontFamily">@font/crimson_pro_medium</item>
+    </style>
+
+    <style name="spinner" >
+        <item name="color">@color/grey</item>
+        <item name="android:textSize">@dimen/login_mobile_text_size</item>
+        <item name="fontFamily">@font/muli</item>
+    </style>
+
+
+    <style name="BlueButton">
+        <item name="android:background">@color/button_blue</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="fontFamily">@font/muli</item>
+        <item name="android:textSize">@dimen/login_mobile_text_size</item>
+
+    </style>
+
+    <style name="EditTextHint" parent="TextAppearance.AppCompat">
+        <item name="colorAccent">@android:color/white</item>
+        <item name="android:textColorHint">@color/text_blue</item>
+        <item name="colorControlNormal">@color/button_blue</item>
+        <item name="colorControlActivated">@color/button_blue</item>
+        <item name="colorControlHighlight">@color/button_blue</item>
+    </style>
+
+
+    <!--<style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/box_stroke_color</item>
+        <item name="boxStrokeWidth">1dp</item>
+    </style>-->
+
+    <style name="roundedImageViewRounded">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="SplashHeading" parent="RegularBlue">
+        <item name="android:textSize">@dimen/splash_heading_text_size</item>
+    </style>
+
+    <style name="SplashHeadingDescription" parent="RegularBlack">
+        <item name="android:textSize">@dimen/login_mobile_text_size</item>
+    </style>
+</resources>

@@ -14,8 +14,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 
 class EmergencyContactViewModel: ViewModel() {
-    lateinit var emergencyContactList: ArrayList<EmergencyContacts>
 
+    var mobileNumber: MutableLiveData<String> = MutableLiveData()
+    var name: MutableLiveData<String> = MutableLiveData()
+
+    lateinit var emergencyContactList: ArrayList<EmergencyContacts>
     var _emergencyContacts= MutableLiveData<List<EmergencyContacts>>()
     val emergencyContacts: MutableLiveData<List<EmergencyContacts>>
             get()=_emergencyContacts
@@ -57,6 +60,15 @@ class EmergencyContactViewModel: ViewModel() {
         })
         return emergencyContactList
 
+    }
+
+    fun addData(){
+        emergencyContactList = ArrayList()
+        val emergencyContacts: EmergencyContacts = EmergencyContacts(
+            mobileNumber.value.toString(),name.value.toString(),"50","70"
+        )
+        emergencyContactList.add(emergencyContacts)
+        _emergencyContacts.value=emergencyContactList
     }
 
 }

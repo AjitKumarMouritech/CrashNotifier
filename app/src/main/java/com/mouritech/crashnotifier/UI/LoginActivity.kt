@@ -16,6 +16,7 @@ import com.mouritech.crashnotifier.R
 import com.mouritech.crashnotifier.data.viewmodel.LoginViewModel
 import com.mouritech.crashnotifier.data.viewmodel.SignupViewModel
 import com.mouritech.crashnotifier.databinding.ActivityLoginBinding
+import com.mouritech.crashnotifier.ui.MainActivity
 import java.util.concurrent.TimeUnit
 
 class LoginActivity  : AppCompatActivity() {

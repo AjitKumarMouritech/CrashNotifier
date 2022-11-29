@@ -7,11 +7,11 @@ class Utils {
     companion object{
         fun displayProgressBar(loginActivity: LoginActivity) {
             var progress : ProgressDialog
-            progress = ProgressDialog(loginActivity);
+            progress = ProgressDialog(loginActivity)
             progress.setTitle("Sending OTP")
             progress.setMessage("Wait!!")
             progress.setCancelable(true)
-            progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progress.setProgressStyle(ProgressDialog.STYLE_SPINNER)
             progress.show()
         }
     }

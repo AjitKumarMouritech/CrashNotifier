@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         emergencyContactMap.put("lon","85.0414")
         // FirebaseDatabase.getInstance().getReference().child("emergency_contact").push().setValue(emergencyContactMap)
 
-        database = FirebaseDatabase.getInstance().getReference()
+        database = FirebaseDatabase.getInstance().reference
         database.child("emergency_contact").push().setValue(emergencyContactMap)
     }
 

@@ -45,9 +45,9 @@ class LoginActivity  : AppCompatActivity() {
 
         binding.sendOTP.setOnClickListener {
             displayProgressBar()
-            loginViewModel!!.mobileNumber.value = binding.mobileNumber.text?.trim().toString()
+            loginViewModel.mobileNumber.value = binding.mobileNumber.text?.trim().toString()
 
-            if (loginViewModel!!.isMobileNumberValid()){
+            if (loginViewModel.isMobileNumberValid()){
 
                loginViewModel.checkDuplication(this@LoginActivity,)
             }
@@ -59,11 +59,11 @@ class LoginActivity  : AppCompatActivity() {
         }
 
         binding.submit.setOnClickListener {
-            loginViewModel!!.otp.value =binding.enterOTP.text?.trim().toString()
+            loginViewModel.otp.value =binding.enterOTP.text?.trim().toString()
 
-            if(loginViewModel!!.isOTPValid()){
+            if(loginViewModel.isOTPValid()){
                 val credential : PhoneAuthCredential = PhoneAuthProvider.getCredential(
-                    storedVerificationId.toString(), loginViewModel!!.otp.value.toString())
+                    storedVerificationId.toString(), loginViewModel.otp.value.toString())
                 signInWithPhoneAuthCredential(credential)
             }else{
                 Toast.makeText(this,"Enter OTP", Toast.LENGTH_SHORT).show()
@@ -124,11 +124,11 @@ class LoginActivity  : AppCompatActivity() {
 
 
     private fun displayProgressBar() {
-        progress = ProgressDialog(this);
+        progress = ProgressDialog(this)
         progress.setTitle("Sending OTP")
         progress.setMessage("Wait!!")
         progress.setCancelable(true)
-        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER)
         progress.show()
     }
     companion object{

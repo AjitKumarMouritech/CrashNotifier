@@ -35,7 +35,7 @@ class EmergencyContactViewModel: ViewModel() {
     private suspend fun getEmergencyContactList():List<EmergencyContacts> {
         // Read from the database
         val database = FirebaseDatabase.getInstance()
-        val myRef = database.getReference()
+        val myRef = database.reference
         myRef.child("emergency_contact").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
                 // This method is called once with the initial value and again

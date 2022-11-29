@@ -45,11 +45,11 @@ class AddEmergencyContact : AppCompatActivity() {
 
             if (viewModel.mobileNumber.value.toString().isEmpty() &&
                     viewModel.mobileNumber.value.toString().length<10){
-                valid = false;
+                valid = false
                 Toast.makeText(this,"Enter valid mobile Number",Toast.LENGTH_SHORT).show()
             }
             else if (viewModel.name.value.toString().isEmpty()){
-                valid = false;
+                valid = false
                 Toast.makeText(this,"Enter user name",Toast.LENGTH_SHORT).show()
             }
 
@@ -66,7 +66,7 @@ class AddEmergencyContact : AppCompatActivity() {
             }
             else{
                 //startActivity(Intent(applicationContext,SignupActivity::class.java))
-                super.onBackPressed();
+                super.onBackPressed()
             }
         }
 
@@ -76,9 +76,9 @@ class AddEmergencyContact : AppCompatActivity() {
         data.add(
             EmergencyContacts(
                 it!![0].mobile,
-                it!![0].name,
-                it!![0].lat,
-                it!![0].lon,
+                it[0].name,
+                it[0].lat,
+                it[0].lon,
             )
         )
         val adapter = ContactDetails(data)

@@ -133,11 +133,11 @@ class SignupActivity : AppCompatActivity() {
     }
 
     private fun displayProgressBar() {
-        progress = ProgressDialog(this);
+        progress = ProgressDialog(this)
         progress.setTitle("Creating user")
         progress.setMessage("Wait!!")
         progress.setCancelable(true)
-        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER)
         progress.show()
     }
 

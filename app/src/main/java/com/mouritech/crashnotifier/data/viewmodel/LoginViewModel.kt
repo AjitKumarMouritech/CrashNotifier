@@ -10,9 +10,6 @@ import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.database.*
 import com.mouritech.crashnotifier.UI.LoginActivity
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import java.util.concurrent.TimeUnit
 
 
@@ -26,7 +23,7 @@ class LoginViewModel: ViewModel() {
     lateinit var auth: FirebaseAuth
 
     fun isMobileNumberValid(): Boolean {
-        var number = this.mobileNumber.value.toString()
+        val number = this.mobileNumber.value.toString()
         return number.isNotEmpty() && number.length == 10
     }
 

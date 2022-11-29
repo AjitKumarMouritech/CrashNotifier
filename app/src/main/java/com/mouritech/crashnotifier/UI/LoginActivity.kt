@@ -21,6 +21,8 @@ import java.util.concurrent.TimeUnit
 class LoginActivity  : AppCompatActivity() {
 
     lateinit var binding:ActivityLoginBinding
+    var number : String =""
+    lateinit var auth: FirebaseAuth
     lateinit var storedVerificationId:String
     lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
     lateinit var loginViewModel: LoginViewModel
@@ -72,7 +74,7 @@ class LoginActivity  : AppCompatActivity() {
         callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
-                startActivity(Intent(applicationContext, MainActivity::class.java))
+                startActivity(Intent(applicationContext, Main2Activity::class.java))
                 finish()
                 Log.d("dashboard" , "onVerificationCompleted Success")
             }
@@ -102,7 +104,8 @@ class LoginActivity  : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     successfullyLoggedIn("LoggedIn",true)
-                   val intent = Intent(this , MainActivity::class.java)
+                   //val intent = Intent(this , MainActivity::class.java)
+                   val intent = Intent(this , Main2Activity::class.java)
                     startActivity(intent)
                     finish()
                 } else {
@@ -120,7 +123,6 @@ class LoginActivity  : AppCompatActivity() {
         myEdit.putInt("login", 2)
         myEdit.commit()
     }
-
 
     private fun displayProgressBar() {
         progress = ProgressDialog(this);

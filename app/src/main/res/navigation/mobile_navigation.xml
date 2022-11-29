@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_menu_nearest_emergency_contacts">
+
+    <fragment
+        android:id="@+id/nav_menu_nearest_emergency_contacts"
+        android:name="com.mouritech.crashnotifier.UI.ui.home.NearEmergencyContacts"
+        android:label="@string/nav_menu_nearest_emergency_contacts"
+        tools:layout="@layout/fragment_near_emergency_contact" />
+
+    <fragment
+        android:id="@+id/nav_menu_hospitals_list"
+        android:name="com.mouritech.crashnotifier.UI.ui.gallery.NearHospitalsList"
+        android:label="@string/menu_hospital_medical_shops_list"
+        tools:layout="@layout/fragment_hospitals_list" />
+
+    <fragment
+        android:id="@+id/nav_menu_update_emergency_contacts"
+        android:name="com.mouritech.crashnotifier.UI.ui.slideshow.UpdateEmergencyContacts"
+        android:label="@string/menu_update_emergency_contacts"
+        tools:layout="@layout/fragment_update_emergency_contacts" />
+
+    <fragment
+        android:id="@+id/nav_update_health_details"
+        android:name="com.mouritech.crashnotifier.UI.ui.health_details.UpdateHealthDetails"
+        android:label="@string/menu_update_health_details"
+        tools:layout="@layout/fragment_update_emergency_contacts" />
+</navigation>

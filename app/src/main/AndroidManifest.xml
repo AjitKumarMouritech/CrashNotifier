@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -16,8 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CrashNotifier"
         tools:targetApi="31">
-        <!--<activity
-            android:name=".UI.SplashScreen"
+        <activity
+            android:name=".UI.Main2Activity"
             android:exported="true"
             android:label="@string/title_activity_main2"
             android:theme="@style/Theme.CrashNotifier.NoActionBar">
@@ -30,7 +26,7 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-        </activity>-->
+        </activity>
         <!--
              TODO: Before you run your application, you need a Google Maps API key.
 
@@ -44,13 +40,13 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAQvvIMOfFeEpyxRTL7yg4XayZ06StnnFU" />
+            android:value="YOUR_API_KEY" />
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
-        <activity
-            android:name=".UI.SplashScreen"
+       <!-- <activity
+            android:name=".UI.LoginActivity"
             android:exported="true"
             android:label="@string/title_activity_maps">
             <intent-filter>
@@ -58,11 +54,10 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-      <activity android:name=".UI.AddEmergencyContact"></activity>
-      <activity android:name=".UI.LoginActivity"></activity>
-      <activity android:name=".UI.SignupActivity"></activity>
-        <activity android:name=".ui.MainActivity"></activity>
+        </activity>-->
+        <activity android:name=".UI.AddEmergencyContact" />
+        <activity android:name=".UI.SignupActivity" />
+        <activity android:name=".UI.LoginActivity" />
     </application>
 
 </manifest>

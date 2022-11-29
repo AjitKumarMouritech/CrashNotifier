@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import com.mouritech.crashnotifier.UI.AddEmergencyContact
 import com.mouritech.crashnotifier.UI.LoginActivity
 import com.mouritech.crashnotifier.UI.SignupActivity
 
@@ -30,6 +31,7 @@ class SignupViewModel : ViewModel() {
         usersNumberfromDb: Long
     ) {
        if (usersList.isNotEmpty() &&usersList.contains(mobileNumber.value)){
+           SignupActivity.stopProgressBar()
            Toast.makeText(signupActivity, "Entered mobile number is already in use, please try with another one", Toast.LENGTH_SHORT).show()
        }
         else{
@@ -61,21 +63,44 @@ class SignupViewModel : ViewModel() {
         try{
             dataAdded = true
             database.child("signup").push().setValue(newUserDataMap)
-            Toast.makeText(signupActivity, "Signup is success, please login with registered mobile number", Toast.LENGTH_SHORT).show()
-
 
             var uid = "uid_$usersNumberfromDb"
-
             val addUidMap:HashMap<String,String> = HashMap<String,String>()
             addUidMap["uid"] = uid
             addUidMap["mobile_number"] = this.mobileNumber.value.toString()
             database.child("users").push().setValue(addUidMap)
 
+            addEmergencyContactsToFirebaseDB(uid,signupActivity)
+
+            Toast.makeText(signupActivity, "Signup is success, please login with registered mobile number", Toast.LENGTH_SHORT).show()
             signupActivity.startActivity(Intent(signupActivity , LoginActivity::class.java))
             signupActivity.finish()
 
         }catch (error : java.lang.Exception){
-            Toast.makeText(signupActivity, "Fail to add data $error", Toast.LENGTH_SHORT)
+            SignupActivity.stopProgressBar()
+            Toast.makeText(signupActivity, "Failed to add data $error", Toast.LENGTH_SHORT)
+                .show()
+        }
+    }
+
+    private fun addEmergencyContactsToFirebaseDB(uid: String, signupActivity: SignupActivity, ) {
+        try{
+
+            for (emergency_contact in AddEmergencyContact.data) {
+                val addContactsMap:HashMap<String,String> = HashMap<String,String>()
+                addContactsMap["uid"] = uid
+                addContactsMap["user_mobile_number"] = this.mobileNumber.value.toString()
+                addContactsMap["emergency_contact_name"] =  emergency_contact.name
+                addContactsMap["emergency_contact_number"] = emergency_contact.mobile
+                addContactsMap["lat"] =  "70"
+                addContactsMap["long"] = "50"
+                database.child("emergency_contact_details").push().setValue(addContactsMap)
+            }
+
+
+        }catch (exception:Exception){
+            SignupActivity.stopProgressBar()
+            Toast.makeText(signupActivity, "exception while adding emergency contacts $exception", Toast.LENGTH_SHORT)
                 .show()
         }
     }
@@ -96,6 +121,7 @@ class SignupViewModel : ViewModel() {
                 }
             }
             override fun onCancelled(error: DatabaseError) {
+                SignupActivity.stopProgressBar()
                 Toast.makeText(signupActivity, "Failed to fetch data $error", Toast.LENGTH_SHORT).show()
             }
         })

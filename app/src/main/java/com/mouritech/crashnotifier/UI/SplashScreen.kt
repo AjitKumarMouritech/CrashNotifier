@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.mouritech.crashnotifier.R
 import com.mouritech.crashnotifier.databinding.ActivitySplashScreenBinding
-
+import com.mouritech.crashnotifier.ui.MainActivity
 
 
 class SplashScreen : AppCompatActivity() {

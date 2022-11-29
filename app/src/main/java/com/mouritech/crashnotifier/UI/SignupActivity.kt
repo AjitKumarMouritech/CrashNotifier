@@ -10,7 +10,10 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.mouritech.crashnotifier.R
+import com.mouritech.crashnotifier.UI.adapters.ContactDetails
+import com.mouritech.crashnotifier.data.viewmodel.EmergencyContactViewModel
 import com.mouritech.crashnotifier.data.viewmodel.SignupViewModel
 import com.mouritech.crashnotifier.databinding.ActivitySignupBinding
 import java.util.*
@@ -19,10 +22,8 @@ import java.util.*
 class SignupActivity : AppCompatActivity() {
 
     lateinit var dob: TextView
-    lateinit var addEmergencyContact : Button
     lateinit var signupViewModel: SignupViewModel
     lateinit var binding: ActivitySignupBinding
-    lateinit var progress : ProgressDialog
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,8 +32,9 @@ class SignupActivity : AppCompatActivity() {
         signupViewModel= ViewModelProvider(this)[SignupViewModel::class.java]
         binding = DataBindingUtil.setContentView(this,R.layout.activity_signup)
 
+        binding.contactsRV.layoutManager = LinearLayoutManager(this)
+
         dob = findViewById(R.id.dob)
-        addEmergencyContact = findViewById<Button>(R.id.addEmergencyContact)
         dob.setOnClickListener {
             val c = Calendar.getInstance()
             val year = c.get(Calendar.YEAR)
@@ -70,9 +72,8 @@ class SignupActivity : AppCompatActivity() {
         genderSpinner.adapter = genderSpinnerAdapter
 
 
-        addEmergencyContact.setOnClickListener {
+        binding.addEmergencyContact.setOnClickListener {
             startActivity(Intent(applicationContext, AddEmergencyContact::class.java))
-            finish()
             Log.d("signup" , "clicked AddEmergencyContact")
         }
 
@@ -109,21 +110,41 @@ class SignupActivity : AppCompatActivity() {
                 binding.bloodGroupInput.error = "Select blood group"
 
             }
+            else if (AddEmergencyContact.data.size==0){
+                valid = false
+               Toast.makeText(this,"Please add at least one or two emergency contact details",Toast.LENGTH_SHORT).show()
+            }
 
             if (valid){
                 signupViewModel.checkDuplication(this@SignupActivity)
             }
+            else{
+                stopProgressBar()
+            }
         }
 
+    }
+    override fun onRestart() {
+        if (AddEmergencyContact.data.isNotEmpty()){
+            val adapter = ContactDetails(AddEmergencyContact.data)
+            binding.contactsRV.adapter = adapter
+        }
+        super.onRestart()
     }
 
     private fun displayProgressBar() {
         progress = ProgressDialog(this);
-        progress.setTitle("Sending OTP")
+        progress.setTitle("Creating user")
         progress.setMessage("Wait!!")
         progress.setCancelable(true)
         progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progress.show()
     }
 
+    companion object{
+        lateinit var progress : ProgressDialog
+        fun stopProgressBar(){
+            progress.hide()
+        }
+    }
 }

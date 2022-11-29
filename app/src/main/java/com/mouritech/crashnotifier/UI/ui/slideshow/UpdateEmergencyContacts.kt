@@ -13,9 +13,6 @@ import com.mouritech.crashnotifier.databinding.FragmentUpdateEmergencyContactsBi
 class UpdateEmergencyContacts : Fragment() {
 
     private var _binding: FragmentUpdateEmergencyContactsBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(

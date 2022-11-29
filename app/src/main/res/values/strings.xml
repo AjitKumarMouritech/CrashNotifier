@@ -56,4 +56,8 @@
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="title_activity_main2">Main2Activity</string>
+
+    <string name="update">Update</string>
+    <string name="bg">Blood Group</string>
+    <string name="hd">Health Data</string>
 </resources>

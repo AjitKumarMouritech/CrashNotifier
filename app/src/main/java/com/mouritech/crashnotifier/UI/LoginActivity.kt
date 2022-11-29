@@ -16,8 +16,7 @@ import com.mouritech.crashnotifier.R
 import com.mouritech.crashnotifier.data.viewmodel.LoginViewModel
 import com.mouritech.crashnotifier.data.viewmodel.SignupViewModel
 import com.mouritech.crashnotifier.databinding.ActivityLoginBinding
-import com.mouritech.crashnotifier.ui.MainActivity
-import java.util.concurrent.TimeUnit
+
 
 class LoginActivity  : AppCompatActivity() {
 
@@ -73,7 +72,7 @@ class LoginActivity  : AppCompatActivity() {
         callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
-                startActivity(Intent(applicationContext, MainActivity::class.java))
+                startActivity(Intent(applicationContext, Main2Activity::class.java))
                 finish()
                 Log.d("dashboard" , "onVerificationCompleted Success")
             }
@@ -103,7 +102,7 @@ class LoginActivity  : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     successfullyLoggedIn("LoggedIn",true)
-                   val intent = Intent(this , MainActivity::class.java)
+                   val intent = Intent(this , Main2Activity::class.java)
                     startActivity(intent)
                     finish()
                 } else {
@@ -119,6 +118,7 @@ class LoginActivity  : AppCompatActivity() {
         val sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE)
         val myEdit = sharedPreferences.edit()
         myEdit.putInt("login", 2)
+        myEdit.putString("login_mobile_number",loginViewModel.mobileNumber.value.toString())
         myEdit.commit()
     }
 

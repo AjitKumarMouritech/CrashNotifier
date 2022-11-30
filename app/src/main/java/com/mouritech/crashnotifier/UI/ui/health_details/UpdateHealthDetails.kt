@@ -42,8 +42,9 @@ class UpdateHealthDetails : Fragment() {
         _binding = FragmentUpdateHealthDataBinding.inflate(inflater, container, false)
         progress = ProgressDialog(requireActivity())
         Utils.displayProgressBar(progress,"Fetching Data")
+
         val preferences = this.requireActivity().getSharedPreferences("MySharedPref", AppCompatActivity.MODE_PRIVATE)
-        mobileNumber = preferences.getString("login_mobile_number", "").toString()
+        mobileNumber = Utils.mobileNumber(preferences)
         nearEmergencyContactsViewModel.getDetails(mobileNumber)
 
         val root: View = binding.root

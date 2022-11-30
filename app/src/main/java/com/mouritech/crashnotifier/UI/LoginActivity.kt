@@ -12,6 +12,10 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.FirebaseApp
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.*
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.mouritech.crashnotifier.R
 import com.mouritech.crashnotifier.UI.ui.health_details.UpdateHealthDetails
 import com.mouritech.crashnotifier.data.viewmodel.LoginViewModel
@@ -108,6 +112,7 @@ class LoginActivity  : AppCompatActivity() {
         auth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
+                    setUserID()
                     successfullyLoggedIn("LoggedIn",true)
                     Utils.stopProgressBar(progress)
                    val intent = Intent(this , Main2Activity::class.java)
@@ -121,6 +126,31 @@ class LoginActivity  : AppCompatActivity() {
                 }
             }
 
+    }
+
+    private fun setUserID() {
+
+        FirebaseAuth.getInstance()
+        val database = FirebaseDatabase.getInstance()
+        val myRef = database.reference.child("emergency_contact_details")
+        myRef.orderByChild("user_mobile_number").equalTo(loginViewModel.mobileNumber.value.toString())
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    if(dataSnapshot.exists()) {
+                        for (each_item_snapshot in dataSnapshot.children) {
+                            val sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE)
+                            val myEdit = sharedPreferences.edit()
+                            myEdit.putString("uid",each_item_snapshot.child("uid").value.toString())
+                            myEdit.commit()
+                        }
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Log.d("User", error.toString())
+                }
+
+            })
     }
 
     private fun successfullyLoggedIn(key: String, value: Boolean) {

@@ -1,14 +1,20 @@
 package com.mouritech.crashnotifier.data.viewmodel
 
+import android.content.Intent
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.mouritech.crashnotifier.UI.Main2Activity
+import com.mouritech.crashnotifier.UI.ui.contacts.AddEmergencyContactFromPhoneContacts
+import com.mouritech.crashnotifier.UI.ui.contacts.UpdateEmergencyContacts
 import com.mouritech.crashnotifier.data.model.EmergencyContacts
-import com.mouritech.crashnotifier.data.repository.EmergencyContactRepository
+import com.mouritech.crashnotifier.utils.Utils
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -29,6 +35,14 @@ class EmergencyContactViewModel: ViewModel() {
 
         val job= CoroutineScope(Dispatchers.IO).async {
              getEmergencyContactList()
+        }
+
+    }
+    fun getEmergencyContact2(mobileNumber: String) {
+
+        emergencyContactList= ArrayList()
+        val job= CoroutineScope(Dispatchers.IO).async {
+             getEmergencyContactList2(mobileNumber)
         }
 
     }
@@ -62,13 +76,79 @@ class EmergencyContactViewModel: ViewModel() {
 
     }
 
+
+    private suspend fun getEmergencyContactList2(mobileNumber: String):List<EmergencyContacts> {
+        val database = FirebaseDatabase.getInstance()
+        val myRef = database.reference.child("emergency_contact_details")
+        myRef.orderByChild("user_mobile_number").equalTo(mobileNumber)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+
+                    for (item_snapshot in dataSnapshot.children) {
+                        val emergencyContacts: EmergencyContacts = EmergencyContacts(
+                            item_snapshot.child("emergency_contact_number").value.toString(),
+                            item_snapshot.child("emergency_contact_name").value.toString(),
+                            item_snapshot.child("lat").value.toString(),
+                            item_snapshot.child("long").value.toString()
+                        )
+                        emergencyContactList.add(emergencyContacts)
+                        Log.d("item id ", emergencyContacts.toString())
+                    }
+                    _emergencyContacts.value=emergencyContactList
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Log.d("Update view model", error.toString())
+                    Utils.stopProgressBar(UpdateEmergencyContacts.progress)
+                }
+
+            })
+        return emergencyContactList
+    }
+
     fun addData(){
-        emergencyContactList = ArrayList()
+        //emergencyContactList = ArrayList()
         val emergencyContacts: EmergencyContacts = EmergencyContacts(
             mobileNumber.value.toString(),name.value.toString(),"50","70"
         )
         emergencyContactList.add(emergencyContacts)
         _emergencyContacts.value=emergencyContactList
+    }
+
+    fun updateEmergencyContacts(
+        emergencyContactList: ArrayList<EmergencyContacts>,
+        mobileNumber: String,
+        userID: String,
+        context: AddEmergencyContactFromPhoneContacts
+    ) {
+        FirebaseAuth.getInstance()
+        val database = FirebaseDatabase.getInstance()
+        val myRef = database.reference.child("emergency_contact_details")
+        try{
+
+            for (emergency_contact in emergencyContactList) {
+
+                val addContactsMap:HashMap<String,Any> = HashMap<String,Any>()
+                addContactsMap["uid"] = userID
+                addContactsMap["user_mobile_number"] = mobileNumber
+                addContactsMap["emergency_contact_name"] =  emergency_contact.name
+                addContactsMap["emergency_contact_number"] = emergency_contact.mobile
+                addContactsMap["lat"] =  "70"
+                addContactsMap["long"] = "50"
+                myRef.push().updateChildren(addContactsMap)
+            }
+            Toast.makeText(context, "Contacts added successfully", Toast.LENGTH_SHORT)
+                .show()
+            Utils.stopProgressBar(AddEmergencyContactFromPhoneContacts.progress)
+           context.startActivity(Intent(context,Main2Activity::class.java))
+
+        }catch (exception:Exception){
+            Utils.stopProgressBar(AddEmergencyContactFromPhoneContacts.progress)
+            Toast.makeText(context, "exception while adding emergency contacts $exception", Toast.LENGTH_SHORT)
+                .show()
+        }
+
     }
 
 }

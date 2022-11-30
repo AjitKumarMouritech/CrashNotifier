@@ -1,7 +1,7 @@
 package com.mouritech.crashnotifier.utils
 
 import android.app.ProgressDialog
-import com.mouritech.crashnotifier.UI.ui.health_details.UpdateHealthDetails
+import android.content.SharedPreferences
 
 class Utils {
     companion object{
@@ -15,6 +15,14 @@ class Utils {
 
         fun stopProgressBar(progress: ProgressDialog){
            progress.hide()
+        }
+
+        fun mobileNumber(preferences: SharedPreferences): String {
+            return preferences.getString("login_mobile_number", "").toString()
+        }
+
+        fun getUserID(preferences: SharedPreferences): String {
+            return preferences.getString("uid", "").toString()
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.mouritech.crashnotifier.UI.ui.home
+package com.mouritech.crashnotifier.UI.ui.hospitals
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,12 +7,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.mouritech.crashnotifier.data.viewmodel.NearEmergencyContactsViewModel
-import com.mouritech.crashnotifier.databinding.FragmentNearEmergencyContactBinding
+import com.mouritech.crashnotifier.data.viewmodel.NearHospitalsListViewModel
+import com.mouritech.crashnotifier.databinding.FragmentHospitalsListBinding
 
-class NearEmergencyContacts : Fragment() {
+class NearHospitalsList : Fragment() {
 
-    private var _binding: FragmentNearEmergencyContactBinding? = null
+    private var _binding: FragmentHospitalsListBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -23,14 +23,14 @@ class NearEmergencyContacts : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val nearEmergencyContactsViewModel =
-            ViewModelProvider(this).get(NearEmergencyContactsViewModel::class.java)
+        val nearHospitalsListViewModel =
+            ViewModelProvider(this).get(NearHospitalsListViewModel::class.java)
 
-        _binding = FragmentNearEmergencyContactBinding.inflate(inflater, container, false)
+        _binding = FragmentHospitalsListBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textHome
-        nearEmergencyContactsViewModel.text.observe(viewLifecycleOwner) {
+        val textView: TextView = binding.textGallery
+        nearHospitalsListViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
         }
         return root

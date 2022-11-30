@@ -16,6 +16,7 @@ import com.mouritech.crashnotifier.UI.adapters.ContactDetails
 import com.mouritech.crashnotifier.data.viewmodel.EmergencyContactViewModel
 import com.mouritech.crashnotifier.data.viewmodel.SignupViewModel
 import com.mouritech.crashnotifier.databinding.ActivitySignupBinding
+import com.mouritech.crashnotifier.utils.Utils
 import java.util.*
 
 
@@ -79,7 +80,8 @@ class SignupActivity : AppCompatActivity() {
 
         binding.submit.setOnClickListener {
 
-            displayProgressBar()
+            progress = ProgressDialog(this@SignupActivity)
+            Utils.displayProgressBar(progress,"Creating user")
             var valid : Boolean = true
             signupViewModel.userName.value = binding.userName.text.toString()
             signupViewModel.mobileNumber.value = binding.mobileNumber.text.toString()
@@ -119,7 +121,7 @@ class SignupActivity : AppCompatActivity() {
                 signupViewModel.checkDuplication(this@SignupActivity)
             }
             else{
-                stopProgressBar()
+                Utils.stopProgressBar(progress)
             }
         }
 
@@ -131,20 +133,7 @@ class SignupActivity : AppCompatActivity() {
         }
         super.onRestart()
     }
-
-    private fun displayProgressBar() {
-        progress = ProgressDialog(this)
-        progress.setTitle("Creating user")
-        progress.setMessage("Wait!!")
-        progress.setCancelable(true)
-        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER)
-        progress.show()
-    }
-
     companion object{
         lateinit var progress : ProgressDialog
-        fun stopProgressBar(){
-            progress.hide()
-        }
     }
 }

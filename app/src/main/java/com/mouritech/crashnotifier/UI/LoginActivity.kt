@@ -13,9 +13,12 @@ import com.google.firebase.FirebaseApp
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.*
 import com.mouritech.crashnotifier.R
+import com.mouritech.crashnotifier.UI.ui.health_details.UpdateHealthDetails
 import com.mouritech.crashnotifier.data.viewmodel.LoginViewModel
 import com.mouritech.crashnotifier.data.viewmodel.SignupViewModel
 import com.mouritech.crashnotifier.databinding.ActivityLoginBinding
+import com.mouritech.crashnotifier.utils.Utils
+import io.grpc.okhttp.internal.Util
 
 
 class LoginActivity  : AppCompatActivity() {
@@ -43,7 +46,8 @@ class LoginActivity  : AppCompatActivity() {
         }
 
         binding.sendOTP.setOnClickListener {
-            displayProgressBar()
+            progress = ProgressDialog(this@LoginActivity)
+            Utils.displayProgressBar(progress,"Sending OTP")
             loginViewModel.mobileNumber.value = binding.mobileNumber.text?.trim().toString()
 
             if (loginViewModel.isMobileNumberValid()){
@@ -51,13 +55,15 @@ class LoginActivity  : AppCompatActivity() {
                loginViewModel.checkDuplication(this@LoginActivity,)
             }
             else{
-                progress.hide()
+                Utils.stopProgressBar(progress)
                 binding.mobileNumber.setText("")
                 Toast.makeText(this,"Enter valid mobile number", Toast.LENGTH_SHORT).show()
             }
         }
 
         binding.submit.setOnClickListener {
+            progress = ProgressDialog(this)
+            Utils.displayProgressBar(progress,"Logging in")
             loginViewModel.otp.value =binding.enterOTP.text?.trim().toString()
 
             if(loginViewModel.isOTPValid()){
@@ -65,6 +71,7 @@ class LoginActivity  : AppCompatActivity() {
                     storedVerificationId.toString(), loginViewModel.otp.value.toString())
                 signInWithPhoneAuthCredential(credential)
             }else{
+                Utils.stopProgressBar(progress)
                 Toast.makeText(this,"Enter OTP", Toast.LENGTH_SHORT).show()
             }
         }
@@ -78,7 +85,7 @@ class LoginActivity  : AppCompatActivity() {
             }
 
             override fun onVerificationFailed(e: FirebaseException) {
-                progress.hide()
+                Utils.stopProgressBar(progress)
                 Log.d("login" , "onVerificationFailed $e")
             }
             override fun onCodeSent(
@@ -91,7 +98,7 @@ class LoginActivity  : AppCompatActivity() {
 
                 binding.enterOTP.visibility =  View.VISIBLE
                 binding.submit.visibility =  View.VISIBLE
-                progress.hide()
+                Utils.stopProgressBar(progress)
                 binding.sendOTP.text = "Resend"
             }
         }
@@ -102,11 +109,13 @@ class LoginActivity  : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     successfullyLoggedIn("LoggedIn",true)
+                    Utils.stopProgressBar(progress)
                    val intent = Intent(this , Main2Activity::class.java)
                     startActivity(intent)
                     finish()
                 } else {
                     if (task.exception is FirebaseAuthInvalidCredentialsException) {
+                        Utils.stopProgressBar(progress)
                         Toast.makeText(this,"Invalid OTP", Toast.LENGTH_SHORT).show()
                     }
                 }
@@ -120,16 +129,6 @@ class LoginActivity  : AppCompatActivity() {
         myEdit.putInt("login", 2)
         myEdit.putString("login_mobile_number",loginViewModel.mobileNumber.value.toString())
         myEdit.commit()
-    }
-
-
-    private fun displayProgressBar() {
-        progress = ProgressDialog(this)
-        progress.setTitle("Sending OTP")
-        progress.setMessage("Wait!!")
-        progress.setCancelable(true)
-        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER)
-        progress.show()
     }
     companion object{
         lateinit var auth: FirebaseAuth

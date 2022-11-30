@@ -21,6 +21,7 @@ import com.mouritech.crashnotifier.R.id.bloodGroupInput
 import com.mouritech.crashnotifier.R.id.healthDataInput
 import com.mouritech.crashnotifier.data.viewmodel.UpdateHealthDetailsViewModel
 import com.mouritech.crashnotifier.databinding.FragmentUpdateHealthDataBinding
+import com.mouritech.crashnotifier.utils.Utils
 
 
 class UpdateHealthDetails : Fragment() {
@@ -39,8 +40,8 @@ class UpdateHealthDetails : Fragment() {
             ViewModelProvider(this).get(UpdateHealthDetailsViewModel::class.java)
 
         _binding = FragmentUpdateHealthDataBinding.inflate(inflater, container, false)
-
-        displayProgressBar("Fetching Data")
+        progress = ProgressDialog(requireActivity())
+        Utils.displayProgressBar(progress,"Fetching Data")
         val preferences = this.requireActivity().getSharedPreferences("MySharedPref", AppCompatActivity.MODE_PRIVATE)
         mobileNumber = preferences.getString("login_mobile_number", "").toString()
         nearEmergencyContactsViewModel.getDetails(mobileNumber)
@@ -72,7 +73,7 @@ class UpdateHealthDetails : Fragment() {
             showEditDataPopup("Blood Group")
         }
         binding.update.setOnClickListener {
-            displayProgressBar("Updating Data")
+            Utils.displayProgressBar(progress,"Updating Data")
             nearEmergencyContactsViewModel.editData(mobileNumber)
         }
 
@@ -131,19 +132,7 @@ class UpdateHealthDetails : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
-    private fun displayProgressBar(data : String) {
-        progress = ProgressDialog(requireActivity())
-        progress.setTitle(data)
-        progress.setMessage("Wait!!")
-        progress.setCancelable(true)
-        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER)
-        progress.show()
-    }
     companion object{
         lateinit var progress : ProgressDialog
-        fun stopProgressBar(){
-            progress.hide()
-        }
     }
 }

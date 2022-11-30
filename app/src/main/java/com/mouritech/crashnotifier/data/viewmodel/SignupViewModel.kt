@@ -9,6 +9,7 @@ import com.google.firebase.database.*
 import com.mouritech.crashnotifier.UI.AddEmergencyContact
 import com.mouritech.crashnotifier.UI.LoginActivity
 import com.mouritech.crashnotifier.UI.SignupActivity
+import com.mouritech.crashnotifier.utils.Utils
 
 
 class SignupViewModel : ViewModel() {
@@ -31,7 +32,7 @@ class SignupViewModel : ViewModel() {
         usersNumberfromDb: Long
     ) {
        if (usersList.isNotEmpty() &&usersList.contains(mobileNumber.value)){
-           SignupActivity.stopProgressBar()
+           Utils.stopProgressBar(SignupActivity.progress)
            Toast.makeText(signupActivity, "Entered mobile number is already in use, please try with another one", Toast.LENGTH_SHORT).show()
        }
         else{
@@ -77,7 +78,7 @@ class SignupViewModel : ViewModel() {
             signupActivity.finish()
 
         }catch (error : java.lang.Exception){
-            SignupActivity.stopProgressBar()
+            Utils.stopProgressBar(SignupActivity.progress)
             Toast.makeText(signupActivity, "Failed to add data $error", Toast.LENGTH_SHORT)
                 .show()
         }
@@ -99,7 +100,7 @@ class SignupViewModel : ViewModel() {
 
 
         }catch (exception:Exception){
-            SignupActivity.stopProgressBar()
+            Utils.stopProgressBar(SignupActivity.progress)
             Toast.makeText(signupActivity, "exception while adding emergency contacts $exception", Toast.LENGTH_SHORT)
                 .show()
         }
@@ -121,7 +122,7 @@ class SignupViewModel : ViewModel() {
                 }
             }
             override fun onCancelled(error: DatabaseError) {
-                SignupActivity.stopProgressBar()
+                Utils.stopProgressBar(SignupActivity.progress)
                 Toast.makeText(signupActivity, "Failed to fetch data $error", Toast.LENGTH_SHORT).show()
             }
         })

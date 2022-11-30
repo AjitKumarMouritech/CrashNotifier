@@ -10,6 +10,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.mouritech.crashnotifier.UI.ui.health_details.UpdateHealthDetails
+import com.mouritech.crashnotifier.utils.Utils
 
 
 class UpdateHealthDetailsViewModel  : ViewModel() {
@@ -39,12 +40,15 @@ class UpdateHealthDetailsViewModel  : ViewModel() {
                         _bloodGroup.value = each_item_snapshot.child("blood_group").value.toString()
                         _healthData.value = each_item_snapshot.child("health_data").value.toString()
                     }
-                    UpdateHealthDetails.stopProgressBar()
+                   // UpdateHealthDetails.stopProgressBar()
+                    Utils.stopProgressBar(UpdateHealthDetails.progress)
                 }
 
                 override fun onCancelled(error: DatabaseError) {
                     Log.d("Update view model", error.toString())
-                    UpdateHealthDetails.stopProgressBar()
+                   // UpdateHealthDetails.stopProgressBar()
+                    Utils.stopProgressBar(UpdateHealthDetails.progress)
+
                 }
 
             })
@@ -68,12 +72,16 @@ class UpdateHealthDetailsViewModel  : ViewModel() {
                             ds.ref.updateChildren(map)
                         }
                     }
-                    UpdateHealthDetails.stopProgressBar()
+                   // UpdateHealthDetails.stopProgressBar()
+                    Utils.stopProgressBar(UpdateHealthDetails.progress)
+
                 }
 
                 override fun onCancelled(error: DatabaseError) {
                     Log.d("User", error.toString())
-                    UpdateHealthDetails.stopProgressBar()
+                    //UpdateHealthDetails.stopProgressBar()
+                    Utils.stopProgressBar(UpdateHealthDetails.progress)
+
                 }
 
             })

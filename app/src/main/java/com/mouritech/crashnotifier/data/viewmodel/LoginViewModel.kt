@@ -10,6 +10,7 @@ import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.database.*
 import com.mouritech.crashnotifier.UI.LoginActivity
+import com.mouritech.crashnotifier.utils.Utils
 import java.util.concurrent.TimeUnit
 
 
@@ -65,7 +66,7 @@ class LoginViewModel: ViewModel() {
         }
 
         else{
-            LoginActivity.progress.hide()
+            Utils.stopProgressBar(LoginActivity.progress)
             Toast.makeText(context,"Entered mobile number is not registered, please Signup to continue",Toast.LENGTH_SHORT).show()
         }
     }

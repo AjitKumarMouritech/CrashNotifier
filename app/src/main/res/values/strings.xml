@@ -58,4 +58,8 @@
     <string name="menu_slideshow">Slideshow</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="No">No</string>
+    <string name="crash_detect_text">It\'s look like you\'va been in a crash</string>
+    <string name="crash_detect">Crash Detected</string>
+    <string name="default_notification_channel_id">12345</string>
 </resources>

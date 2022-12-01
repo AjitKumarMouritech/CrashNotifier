@@ -9,10 +9,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.database.*
-import com.mouritech.crashnotifier.UI.LoginActivity
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
+import com.mouritech.crashnotifier.ui.LoginActivity
 import java.util.concurrent.TimeUnit
 
 

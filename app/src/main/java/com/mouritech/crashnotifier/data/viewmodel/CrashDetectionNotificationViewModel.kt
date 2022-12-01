@@ -1,15 +1,10 @@
 package com.mouritech.crashnotifier.data.viewmodel
 
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.mouritech.crashnotifier.data.model.EmergencyContacts
-import com.mouritech.notification.NotificationData
-import com.mouritech.notification.PushNotification
-import com.mouritech.notification.api.ApiUtilities
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
+import com.mouritech.crashnotifier.notification.NotificationData
+import com.mouritech.crashnotifier.notification.PushNotification
+import com.mouritech.crashnotifier.notification.api.ApiUtilities
 import retrofit2.Call
 import retrofit2.Response
 

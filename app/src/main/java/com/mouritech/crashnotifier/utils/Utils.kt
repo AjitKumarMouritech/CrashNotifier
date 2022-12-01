@@ -1,7 +1,7 @@
 package com.mouritech.crashnotifier.utils
 
 import android.app.ProgressDialog
-import com.mouritech.crashnotifier.UI.LoginActivity
+import com.mouritech.crashnotifier.ui.LoginActivity
 
 class Utils {
     companion object{

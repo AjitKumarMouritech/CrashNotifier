@@ -12,7 +12,7 @@ class EmergencyContactRepositoryIMP: EmergencyContactRepository {
     override fun getEmergencyContact(): List<EmergencyContacts> {
         //Get data from Firebase
         val database = FirebaseDatabase.getInstance()
-        val myRef = database.getReference()
+        val myRef = database.reference
         var  emergencyContactList: List<EmergencyContacts>? = null
 
         // Read from the database

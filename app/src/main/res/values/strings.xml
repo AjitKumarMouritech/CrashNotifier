@@ -14,15 +14,20 @@
     <string name="health_details">Health Details:</string>
     <string name="long_disease">If you are suffering from any long disease mention here</string>
     <string name="add_emergency_num">Add emergency contact number</string>
+    <string name="emergency_contact_details">Emergency Contacts:</string>
 
 
     <string name="blood_groups_tv">Blood Groups</string>
     <string-array name="blood_groups">
         <item>Select Blood Group</item>
-        <item>B+</item>
-        <item>B-</item>
+        <item>A+</item>
         <item>O+</item>
+        <item>B+</item>
+        <item>AB+</item>
+        <item>A-</item>
         <item>O-</item>
+        <item>B-</item>
+        <item>AB-</item>
     </string-array>
     <string-array name="gender">
         <item>Select Gender</item>
@@ -37,8 +42,8 @@
     <string name="done">Done</string>
 
 
-    <string name="menu_nearest_emergency_contacts">Nearest Emergency Contacts</string>
-    <string name="menu_hospital_medical_shops_list">List of Hospitals and Medical shops</string>
+    <string name="nav_menu_nearest_emergency_contacts">Nearest Emergency Contacts</string>
+    <string name="menu_hospital_medical_shops_list">Hospitals and Medical shops</string>
     <string name="menu_update_emergency_contacts">Update Emergency Contacts</string>
     <string name="menu_update_health_details">Update Health Details</string>
     <string name="map_hospital_medical_details">Map With list of hospitals and Medical shops</string>
@@ -53,7 +58,7 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="menu_home">Home</string>
+    <string name="menu_nearst_emergency_contacts">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <!-- TODO: Remove or change this placeholder text -->
@@ -62,4 +67,9 @@
     <string name="crash_detect_text">It\'s look like you\'va been in a crash</string>
     <string name="crash_detect">Crash Detected</string>
     <string name="default_notification_channel_id">12345</string>
+
+    <string name="bg">Blood Group</string>
+    <string name="hd">Health Data</string>
+    <string name="update">Update</string>
+    <string name="enter_hd">Enter health details</string>
 </resources>

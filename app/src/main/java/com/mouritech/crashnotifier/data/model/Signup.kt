@@ -12,9 +12,7 @@ class Signup{
 
     //Default constructor required for calls to
     //DataSnapshot.getValue(User.class)
-    constructor(){
-
-    }
+    constructor()
 
     constructor(userName:String,mobileNumber:String,gender:String,dob:String,bloodGroup:String,healthData:String/*,contacts:MutableMap<String,String>*/){
         this.userName=userName

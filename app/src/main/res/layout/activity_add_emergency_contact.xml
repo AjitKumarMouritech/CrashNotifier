@@ -42,7 +42,34 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
+
                 <com.google.android.material.textfield.TextInputLayout
+                    android:visibility="gone"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    app:boxStrokeWidth="@dimen/box_stroke_width"
+                    android:id="@+id/contactNameInput1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/contactsRV"
+                    app:boxStrokeColor="@color/button_blue"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    tools:ignore="MissingConstraints">
+                    <AutoCompleteTextView
+                        android:id="@+id/contactName1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="@string/contact_name"
+                        android:background="@null"
+                        android:paddingLeft="15dp"
+                        style="@style/MobileNumber"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:visibility="visible"
                     android:layout_marginTop="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -60,10 +87,12 @@
                         android:layout_height="match_parent"
                         android:hint="@string/contact_name"
                         android:background="@null"
+                        android:text="@{EmergencyContacts.component2()}"
                         style="@style/MobileNumber"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
+                    android:visibility="visible"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:boxStrokeWidth="2dp"
@@ -80,6 +109,9 @@
                         android:layout_height="match_parent"
                         android:hint="@string/mobile_number"
                         android:background="@null"
+                        android:inputType="number"
+                        android:maxLength="10"
+                        android:text="@{EmergencyContacts.component1()}"
                         style="@style/MobileNumber"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -97,6 +129,7 @@
 
 
                 <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/addButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/add"
@@ -108,6 +141,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/submit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/done"

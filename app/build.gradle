@@ -24,11 +24,13 @@ android {
             keyAlias 'crashnotifier'
             keyPassword 'android'
             storePassword 'android'
-            storeFile file("/Users/ajit/AndroidStudioProjects/SignUpBranch/CrashNotifier/app/crashnotifier")
+            //storeFile file("/Users/ajit/AndroidStudioProjects/SignUpBranch/CrashNotifier/app/crashnotifier")
+            storeFile file("C:/Users/alekhyas/AndroidStudioProjects/CrashNotifier/app/crashnotifier")
         }
 
         debug {
-           storeFile file("/Users/ajit/AndroidStudioProjects/SignUpBranch/CrashNotifier/app/crashnotifier")
+          // storeFile file("/Users/ajit/AndroidStudioProjects/SignUpBranch/CrashNotifier/app/crashnotifier")
+            storeFile file("C:/Users/alekhyas/AndroidStudioProjects/CrashNotifier/app/crashnotifier")
             keyAlias 'crashnotifier'
             keyPassword 'android'
             storePassword 'android'

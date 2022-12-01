@@ -2,6 +2,8 @@ package com.mouritech.crashnotifier.UI
 
 import android.os.Bundle
 import android.view.Menu
+import android.view.View
+import android.widget.TextView
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
@@ -13,6 +15,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.mouritech.crashnotifier.R
 import com.mouritech.crashnotifier.databinding.ActivityMain2Binding
+import com.mouritech.crashnotifier.utils.Utils
 
 class Main2Activity : AppCompatActivity() {
 
@@ -26,11 +29,23 @@ class Main2Activity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.appBarMain2.toolbar)
+        /*val navigationView = findViewById<View>(com.mouritech.crashnotifier.R.id.nav_view) as NavigationView
 
-       /* binding.appBarMain2.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }*/
+        val headerView: View = navigationView.getHeaderView(0)
+        headerView.findViewById(com.mouritech.crashnotifier.R.id.userName).text = "User"
+        headerView.findViewById(com.mouritech.crashnotifier.R.id.mobileNumber).text = "user@gmail.com"*/
+
+
+        val navigationView = findViewById<View>(com.mouritech.crashnotifier.R.id.nav_view) as NavigationView
+        var headerView= navigationView.getHeaderView(0)
+        var username = headerView.findViewById<TextView>(R.id.userName)
+        var mobileNumber = headerView.findViewById<TextView>(R.id.mobileNumber)
+
+        val preferences = getSharedPreferences("MySharedPref", AppCompatActivity.MODE_PRIVATE)
+
+        username.text = Utils.getUserName(preferences)
+        mobileNumber.text = Utils.mobileNumber(preferences)
+
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
         val navController = findNavController(R.id.nav_host_fragment_content_main2)

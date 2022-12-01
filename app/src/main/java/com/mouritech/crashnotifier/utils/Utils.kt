@@ -24,5 +24,9 @@ class Utils {
         fun getUserID(preferences: SharedPreferences): String {
             return preferences.getString("uid", "").toString()
         }
+
+        fun getUserName(preferences: SharedPreferences): String {
+            return preferences.getString("user_name", "").toString()
+        }
     }
 }

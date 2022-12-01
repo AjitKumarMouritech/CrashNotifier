@@ -22,6 +22,7 @@ class AddEmergencyContact : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(this)[EmergencyContactViewModel::class.java]
+        viewModel.emergencyContactList = ArrayList()
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_emergency_contact)
 
         binding.contactsRV.layoutManager = LinearLayoutManager(this)
@@ -87,6 +88,6 @@ class AddEmergencyContact : AppCompatActivity() {
     }
 
     companion object{
-        val data = ArrayList<EmergencyContacts>()
+        var data = ArrayList<EmergencyContacts>()
     }
 }

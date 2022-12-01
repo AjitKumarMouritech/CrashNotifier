@@ -3,6 +3,7 @@ package com.mouritech.crashnotifier.UI
 import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -103,9 +104,23 @@ class LoginActivity  : AppCompatActivity() {
                 binding.enterOTP.visibility =  View.VISIBLE
                 binding.submit.visibility =  View.VISIBLE
                 Utils.stopProgressBar(progress)
-                binding.sendOTP.text = "Resend"
+                //binding.sendOTP.text = "Resend"
+                setTimerToResendOtp()
             }
         }
+    }
+
+    private fun setTimerToResendOtp() {
+        object : CountDownTimer(60000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                binding.sendOTP.text = "You can request otp in " + millisUntilFinished / 1000+" seconds"
+                binding.sendOTP.isClickable = false
+            }
+            override fun onFinish() {
+                binding.sendOTP.isClickable = true
+                binding.sendOTP.text = "Resend"
+            }
+        }.start()
     }
 
     private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
@@ -113,6 +128,7 @@ class LoginActivity  : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     setUserID()
+                    setUserName()
                     successfullyLoggedIn("LoggedIn",true)
                     Utils.stopProgressBar(progress)
                    val intent = Intent(this , Main2Activity::class.java)
@@ -126,6 +142,29 @@ class LoginActivity  : AppCompatActivity() {
                 }
             }
 
+    }
+
+    private fun setUserName() {
+        FirebaseAuth.getInstance()
+        val database = FirebaseDatabase.getInstance()
+        val myRef = database.reference.child("signup")
+        myRef.orderByChild("mobile_number").equalTo(loginViewModel.mobileNumber.value.toString())
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    if(dataSnapshot.exists()) {
+                        for (each_item_snapshot in dataSnapshot.children) {
+                            val sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE)
+                            val myEdit = sharedPreferences.edit()
+                            myEdit.putString("user_name",each_item_snapshot.child("user_name").value.toString())
+                            myEdit.commit()
+                        }
+                    }
+                }
+                override fun onCancelled(error: DatabaseError) {
+                    Log.d("User", error.toString())
+                }
+
+            })
     }
 
     private fun setUserID() {

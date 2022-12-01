@@ -1,6 +1,7 @@
 package com.mouritech.crashnotifier.data.viewmodel
 
 import android.content.Intent
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -65,23 +66,38 @@ class SignupViewModel : ViewModel() {
             dataAdded = true
             database.child("signup").push().setValue(newUserDataMap)
 
-            var uid = "uid_$usersNumberfromDb"
-            val addUidMap:HashMap<String,String> = HashMap<String,String>()
-            addUidMap["uid"] = uid
-            addUidMap["mobile_number"] = this.mobileNumber.value.toString()
-            database.child("users").push().setValue(addUidMap)
+            addUserIDToDb(mobileNumber.value.toString(),signupActivity)
 
-            addEmergencyContactsToFirebaseDB(uid,signupActivity)
 
-            Toast.makeText(signupActivity, "Signup is success, please login with registered mobile number", Toast.LENGTH_SHORT).show()
-            signupActivity.startActivity(Intent(signupActivity , LoginActivity::class.java))
-            signupActivity.finish()
 
         }catch (error : java.lang.Exception){
             Utils.stopProgressBar(SignupActivity.progress)
             Toast.makeText(signupActivity, "Failed to add data $error", Toast.LENGTH_SHORT)
                 .show()
         }
+    }
+
+    private fun addUserIDToDb(mobileNumber: String, signupActivity: SignupActivity) {
+        FirebaseAuth.getInstance()
+       // val database = FirebaseDatabase.getInstance()
+        val myRef = database.child("signup")
+        myRef.orderByChild("mobile_number").equalTo(mobileNumber)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    for (each_item_snapshot in dataSnapshot.children) {
+                        val addUidMap:HashMap<String,String> = HashMap<String,String>()
+                        addUidMap["uid"] = each_item_snapshot.key.toString()
+                        addUidMap["mobile_number"] = mobileNumber
+                        database.child("users").push().setValue(addUidMap)
+                        addEmergencyContactsToFirebaseDB(each_item_snapshot.key.toString(),signupActivity)
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Log.d("Update view model", error.toString())
+                }
+
+            })
     }
 
     private fun addEmergencyContactsToFirebaseDB(uid: String, signupActivity: SignupActivity, ) {
@@ -98,6 +114,10 @@ class SignupViewModel : ViewModel() {
                 database.child("emergency_contact_details").push().setValue(addContactsMap)
             }
 
+            AddEmergencyContact.data = ArrayList()
+            Toast.makeText(signupActivity, "Signup is success, please login with registered mobile number", Toast.LENGTH_SHORT).show()
+            signupActivity.startActivity(Intent(signupActivity , LoginActivity::class.java))
+            signupActivity.finish()
 
         }catch (exception:Exception){
             Utils.stopProgressBar(SignupActivity.progress)

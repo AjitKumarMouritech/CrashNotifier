@@ -13,11 +13,13 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mouritech.crashnotifier.R
 import com.mouritech.crashnotifier.UI.adapters.ContactDetails
+import com.mouritech.crashnotifier.data.model.EmergencyContacts
 import com.mouritech.crashnotifier.data.viewmodel.EmergencyContactViewModel
 import com.mouritech.crashnotifier.data.viewmodel.SignupViewModel
 import com.mouritech.crashnotifier.databinding.ActivitySignupBinding
 import com.mouritech.crashnotifier.utils.Utils
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class SignupActivity : AppCompatActivity() {
@@ -32,6 +34,7 @@ class SignupActivity : AppCompatActivity() {
         setContentView(R.layout.activity_signup)
         signupViewModel= ViewModelProvider(this)[SignupViewModel::class.java]
         binding = DataBindingUtil.setContentView(this,R.layout.activity_signup)
+        AddEmergencyContact.data = ArrayList<EmergencyContacts>()
 
         binding.contactsRV.layoutManager = LinearLayoutManager(this)
 

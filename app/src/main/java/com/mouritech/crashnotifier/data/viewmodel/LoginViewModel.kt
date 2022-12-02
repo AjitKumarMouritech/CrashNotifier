@@ -9,6 +9,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.database.*
+import com.mouritech.crashnotifier.utils.Utils
 import com.mouritech.crashnotifier.ui.LoginActivity
 import java.util.concurrent.TimeUnit
 
@@ -23,7 +24,7 @@ class LoginViewModel: ViewModel() {
     lateinit var auth: FirebaseAuth
 
     fun isMobileNumberValid(): Boolean {
-        var number = this.mobileNumber.value.toString()
+        val number = this.mobileNumber.value.toString()
         return number.isNotEmpty() && number.length == 10
     }
 
@@ -65,7 +66,7 @@ class LoginViewModel: ViewModel() {
         }
 
         else{
-            LoginActivity.progress.hide()
+            Utils.stopProgressBar(LoginActivity.progress)
             Toast.makeText(context,"Entered mobile number is not registered, please Signup to continue",Toast.LENGTH_SHORT).show()
         }
     }

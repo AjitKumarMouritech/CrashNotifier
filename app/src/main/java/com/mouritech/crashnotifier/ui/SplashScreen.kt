@@ -6,6 +6,7 @@ import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.mouritech.crashnotifier.R
+import com.mouritech.crashnotifier.UI.Main2Activity
 import com.mouritech.crashnotifier.databinding.ActivitySplashScreenBinding
 
 
@@ -22,7 +23,7 @@ class SplashScreen : AppCompatActivity() {
         {
 
             if (checkLoginData()==2){
-                val i = Intent(this@SplashScreen, MainActivity::class.java)
+                val i = Intent(this@SplashScreen, Main2Activity::class.java)
                 startActivity(i)
                 finish()
             }

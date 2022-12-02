@@ -1,4 +1,4 @@
-package com.mouritech.crashnotifier.UI.ui.contacts
+package com.mouritech.crashnotifier.ui.ui.contacts
 
 import android.os.Bundle
 import android.view.LayoutInflater

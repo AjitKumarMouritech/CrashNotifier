@@ -10,9 +10,9 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.mouritech.crashnotifier.UI.Main2Activity
-import com.mouritech.crashnotifier.UI.ui.contacts.AddEmergencyContactFromPhoneContacts
-import com.mouritech.crashnotifier.UI.ui.contacts.UpdateEmergencyContacts
+import com.mouritech.crashnotifier.ui.Main2Activity
+import com.mouritech.crashnotifier.ui.ui.contacts.AddEmergencyContactFromPhoneContacts
+import com.mouritech.crashnotifier.ui.ui.contacts.UpdateEmergencyContacts
 import com.mouritech.crashnotifier.data.model.EmergencyContacts
 import com.mouritech.crashnotifier.utils.Utils
 import kotlinx.coroutines.CoroutineScope
@@ -80,7 +80,7 @@ class EmergencyContactViewModel: ViewModel() {
     private suspend fun getEmergencyContactList2(mobileNumber: String):List<EmergencyContacts> {
         val database = FirebaseDatabase.getInstance()
         val myRef = database.reference.child("emergency_contact_details")
-        myRef.orderByChild("user_mobile_number").equalTo(mobileNumber)
+        myRef.orderByChild("fcm_token").equalTo(mobileNumber)
             .addListenerForSingleValueEvent(object : ValueEventListener {
 
                 override fun onDataChange(dataSnapshot: DataSnapshot) {

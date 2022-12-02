@@ -12,9 +12,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mouritech.crashnotifier.R
-import com.mouritech.crashnotifier.UI.adapters.ContactDetails
+import com.mouritech.crashnotifier.ui.adapters.ContactDetails
 import com.mouritech.crashnotifier.data.model.EmergencyContacts
-import com.mouritech.crashnotifier.data.viewmodel.EmergencyContactViewModel
 import com.mouritech.crashnotifier.data.viewmodel.SignupViewModel
 import com.mouritech.crashnotifier.databinding.ActivitySignupBinding
 import com.mouritech.crashnotifier.utils.Utils

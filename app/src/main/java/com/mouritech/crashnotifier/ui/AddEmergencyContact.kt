@@ -1,6 +1,5 @@
 package com.mouritech.crashnotifier.ui
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -9,10 +8,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mouritech.crashnotifier.R
-import com.mouritech.crashnotifier.UI.adapters.ContactDetails
+import com.mouritech.crashnotifier.ui.adapters.ContactDetails
 import com.mouritech.crashnotifier.data.model.EmergencyContacts
 import com.mouritech.crashnotifier.data.viewmodel.EmergencyContactViewModel
-import com.mouritech.crashnotifier.data.viewmodel.SignupViewModel
 import com.mouritech.crashnotifier.databinding.ActivityAddEmergencyContactBinding
 
 class AddEmergencyContact : AppCompatActivity() {

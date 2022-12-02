@@ -87,8 +87,8 @@
       <activity android:name=".ui.AddEmergencyContact"></activity>
       <activity android:name=".ui.LoginActivity"></activity>
       <activity android:name=".ui.SignupActivity"></activity>
-      <activity android:name=".UI.Main2Activity"></activity>
-      <activity android:name=".UI.ui.contacts.AddEmergencyContactFromPhoneContacts"></activity>
+      <activity android:name=".ui.Main2Activity"></activity>
+      <activity android:name=".ui.ui.contacts.AddEmergencyContactFromPhoneContacts"></activity>
         <service
             android:name="com.mouritech.crashnotifier.services.MyFirebaseMessagingService"
             android:exported="false">

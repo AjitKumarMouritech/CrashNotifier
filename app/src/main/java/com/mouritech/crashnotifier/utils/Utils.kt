@@ -2,7 +2,6 @@ package com.mouritech.crashnotifier.utils
 
 import android.app.ProgressDialog
 import android.content.SharedPreferences
-import com.mouritech.crashnotifier.ui.LoginActivity
 
 class Utils {
     companion object{
@@ -28,6 +27,10 @@ class Utils {
 
         fun getUserName(preferences: SharedPreferences): String {
             return preferences.getString("user_name", "").toString()
+        }
+
+        fun getFcmToken(preferences: SharedPreferences): String {
+            return preferences.getString("fcm_token", "").toString()
         }
     }
 }

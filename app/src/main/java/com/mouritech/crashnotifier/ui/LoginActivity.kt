@@ -18,13 +18,10 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.mouritech.crashnotifier.R
-import com.mouritech.crashnotifier.UI.Main2Activity
-import com.mouritech.crashnotifier.UI.ui.health_details.UpdateHealthDetails
 import com.mouritech.crashnotifier.data.viewmodel.LoginViewModel
 import com.mouritech.crashnotifier.data.viewmodel.SignupViewModel
 import com.mouritech.crashnotifier.databinding.ActivityLoginBinding
 import com.mouritech.crashnotifier.utils.Utils
-import io.grpc.okhttp.internal.Util
 
 
 class LoginActivity  : AppCompatActivity() {
@@ -157,6 +154,7 @@ class LoginActivity  : AppCompatActivity() {
                             val sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE)
                             val myEdit = sharedPreferences.edit()
                             myEdit.putString("user_name",each_item_snapshot.child("user_name").value.toString())
+                            myEdit.putString("fcm_token",each_item_snapshot.child("fcm_token").value.toString())
                             myEdit.commit()
                         }
                     }

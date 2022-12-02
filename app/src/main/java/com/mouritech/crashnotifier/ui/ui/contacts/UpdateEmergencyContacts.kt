@@ -1,4 +1,4 @@
-package com.mouritech.crashnotifier.UI.ui.contacts
+package com.mouritech.crashnotifier.ui.ui.contacts
 
 import android.app.ProgressDialog
 import android.content.Intent
@@ -12,7 +12,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.mouritech.crashnotifier.UI.adapters.ContactDetails
+import com.mouritech.crashnotifier.ui.adapters.ContactDetails
+
+
 import com.mouritech.crashnotifier.data.model.EmergencyContacts
 import com.mouritech.crashnotifier.data.viewmodel.EmergencyContactViewModel
 import com.mouritech.crashnotifier.data.viewmodel.UpdateEmergencyContactsViewModel
@@ -61,7 +63,7 @@ class UpdateEmergencyContacts : Fragment() {
         activity.let { it ->
             viewModel = ViewModelProvider(it!!).get(EmergencyContactViewModel::class.java)
             val preferences = this.requireActivity().getSharedPreferences("MySharedPref", AppCompatActivity.MODE_PRIVATE)
-            viewModel.getEmergencyContact2( Utils.mobileNumber(preferences))
+            viewModel.getEmergencyContact2( Utils.getFcmToken(preferences))
             viewModel._emergencyContacts.observe(viewLifecycleOwner, Observer {data->
                 emergencyContactList = viewModel._emergencyContacts.value!!
                 binding.contactsRV.layoutManager = LinearLayoutManager(requireActivity())

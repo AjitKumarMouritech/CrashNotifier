@@ -7,9 +7,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import com.mouritech.crashnotifier.UI.AddEmergencyContact
-import com.mouritech.crashnotifier.UI.LoginActivity
-import com.mouritech.crashnotifier.UI.SignupActivity
+import com.mouritech.crashnotifier.ui.AddEmergencyContact
+
 import com.mouritech.crashnotifier.utils.Utils
 import com.mouritech.crashnotifier.ui.LoginActivity
 import com.mouritech.crashnotifier.ui.SignupActivity

@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.mouritech.crashnotifier.UI.AddEmergencyContact
 import com.mouritech.crashnotifier.UI.adapters.ContactDetails
 import com.mouritech.crashnotifier.data.model.EmergencyContacts
 import com.mouritech.crashnotifier.data.viewmodel.EmergencyContactViewModel
@@ -49,16 +48,6 @@ class UpdateEmergencyContacts : Fragment() {
         binding.AddContacts.setOnClickListener {
 
             startActivity(Intent(requireActivity(),AddEmergencyContactFromPhoneContacts::class.java))
-            /*var firstfragment: UpdateEmergencyContacts
-            var secondFragment: Add
-            var fm: FragmentManager
-            val ft: FragmentTransaction = fm.beginTransaction()
-            ft.hide(firstfragment)
-            ft.show(secondFragment)
-            ft.commit()*/
-
-           /* requireActivity().supportFragmentManager.beginTransaction()
-                .replace(com.mouritech.crashnotifier.R.id.nav_host_fragment_content_main2, AddEmergencyContactFromPhoneContacts()).commit()*/
         }
 
         return root
@@ -82,6 +71,8 @@ class UpdateEmergencyContacts : Fragment() {
             })
 
         }
+
+
     }
 
     override fun onDestroyView() {
@@ -91,4 +82,9 @@ class UpdateEmergencyContacts : Fragment() {
     companion object{
         lateinit var progress : ProgressDialog
     }
+
+   /* fun onBackPressed() {
+
+    }*/
+
 }

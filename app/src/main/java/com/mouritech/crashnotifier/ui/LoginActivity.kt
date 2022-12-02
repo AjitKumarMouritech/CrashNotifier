@@ -18,6 +18,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.mouritech.crashnotifier.R
+import com.mouritech.crashnotifier.UI.Main2Activity
 import com.mouritech.crashnotifier.UI.ui.health_details.UpdateHealthDetails
 import com.mouritech.crashnotifier.data.viewmodel.LoginViewModel
 import com.mouritech.crashnotifier.data.viewmodel.SignupViewModel

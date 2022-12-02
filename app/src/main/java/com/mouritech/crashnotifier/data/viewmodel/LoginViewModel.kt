@@ -9,7 +9,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
 import com.google.firebase.database.*
-import com.mouritech.crashnotifier.UI.LoginActivity
 import com.mouritech.crashnotifier.utils.Utils
 import com.mouritech.crashnotifier.ui.LoginActivity
 import java.util.concurrent.TimeUnit

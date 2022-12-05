@@ -5,8 +5,10 @@ import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import com.google.firebase.messaging.FirebaseMessaging
 import com.mouritech.crashnotifier.ui.AddEmergencyContact
 
 import com.mouritech.crashnotifier.utils.Utils
@@ -22,6 +24,7 @@ class SignupViewModel : ViewModel() {
     var dob: MutableLiveData<String> = MutableLiveData()
     var bloodGroup: MutableLiveData<String> = MutableLiveData()
     var healthData: MutableLiveData<String> = MutableLiveData()
+    lateinit var fcmToken : String
 
     private var mAuth: FirebaseAuth?=null
     private lateinit var database: DatabaseReference
@@ -30,19 +33,19 @@ class SignupViewModel : ViewModel() {
 
     fun checkElement(
         usersList: ArrayList<String>,
-        signupActivity: SignupActivity,
-        usersNumberfromDb: Long
+        signupActivity: SignupActivity
     ) {
        if (usersList.isNotEmpty() &&usersList.contains(mobileNumber.value)){
            Utils.stopProgressBar(SignupActivity.progress)
            Toast.makeText(signupActivity, "Entered mobile number is already in use, please try with another one", Toast.LENGTH_SHORT).show()
        }
         else{
-            addData(signupActivity,usersNumberfromDb)
+            getFCMToken(signupActivity)
+
        }
     }
 
-    fun addData(signupActivity: SignupActivity, usersNumberfromDb: Long) {
+    fun addData(signupActivity: SignupActivity) {
         dataAdded = true
         val newUserDataMap:HashMap<String,String> = HashMap<String,String>()
         newUserDataMap["user_name"] = this.userName.value.toString()
@@ -51,14 +54,14 @@ class SignupViewModel : ViewModel() {
         newUserDataMap["dob"] = this.dob.value.toString()
         newUserDataMap["blood_group"] = this.bloodGroup.value.toString()
         newUserDataMap["health_data"] = this.healthData.value.toString()
+        newUserDataMap["fcm_token"] = fcmToken
 
-        addDataToFirebase(signupActivity,newUserDataMap,usersNumberfromDb)
+        addDataToFirebase(signupActivity,newUserDataMap)
     }
 
     private fun addDataToFirebase(
         signupActivity: SignupActivity,
-        newUserDataMap: HashMap<String, String>,
-        usersNumberfromDb: Long
+        newUserDataMap: HashMap<String, String>
     ) {
         mAuth=FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance().reference
@@ -69,14 +72,26 @@ class SignupViewModel : ViewModel() {
 
             addUserIDToDb(mobileNumber.value.toString(),signupActivity)
 
-
-            var uid = "uid_$usersNumberfromDb"
-
         }catch (error : java.lang.Exception){
             Utils.stopProgressBar(SignupActivity.progress)
             Toast.makeText(signupActivity, "Failed to add data $error", Toast.LENGTH_SHORT)
                 .show()
         }
+    }
+
+    private fun getFCMToken(signupActivity: SignupActivity){
+        fcmToken =""
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (task.isSuccessful) {
+                fcmToken = task.result
+                addData(signupActivity)
+            }
+            else{
+                Log.w("TAG", "Fetching FCM registration token failed", task.exception)
+                return@OnCompleteListener
+            }
+            Log.d("Token", fcmToken)
+        })
     }
 
     private fun addUserIDToDb(mobileNumber: String, signupActivity: SignupActivity) {
@@ -113,6 +128,7 @@ class SignupViewModel : ViewModel() {
                 addContactsMap["emergency_contact_number"] = emergency_contact.mobile
                 addContactsMap["lat"] =  "70"
                 addContactsMap["long"] = "50"
+                addContactsMap["fcm_token"] = fcmToken
                 database.child("emergency_contact_details").push().setValue(addContactsMap)
             }
 
@@ -140,7 +156,7 @@ class SignupViewModel : ViewModel() {
                         usersList.add(each_item_snapshot.child("mobile_number").value.toString())
                     }
 
-                    checkElement(usersList,signupActivity,snapshot.childrenCount+1)
+                    checkElement(usersList,signupActivity)
                 }
             }
             override fun onCancelled(error: DatabaseError) {

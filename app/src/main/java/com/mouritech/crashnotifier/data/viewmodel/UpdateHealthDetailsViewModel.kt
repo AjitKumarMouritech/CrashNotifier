@@ -9,7 +9,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.mouritech.crashnotifier.UI.ui.health_details.UpdateHealthDetails
+import com.mouritech.crashnotifier.ui.ui.health_details.UpdateHealthDetails
 import com.mouritech.crashnotifier.utils.Utils
 
 

@@ -1,4 +1,4 @@
-package com.mouritech.crashnotifier.UI.ui.health_details
+package com.mouritech.crashnotifier.ui.ui.health_details
 
 import android.app.AlertDialog
 import android.app.ProgressDialog

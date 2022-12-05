@@ -1,4 +1,4 @@
-package com.mouritech.crashnotifier.UI.ui.hospitals
+package com.mouritech.crashnotifier.ui.ui.hospitals
 
 import android.os.Bundle
 import android.view.LayoutInflater

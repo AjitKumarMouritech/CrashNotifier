@@ -6,7 +6,6 @@ import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.mouritech.crashnotifier.R
-import com.mouritech.crashnotifier.UI.Main2Activity
 import com.mouritech.crashnotifier.databinding.ActivitySplashScreenBinding
 
 

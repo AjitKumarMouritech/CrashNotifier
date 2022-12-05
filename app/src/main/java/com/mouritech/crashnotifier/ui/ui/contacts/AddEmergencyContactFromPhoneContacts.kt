@@ -1,4 +1,4 @@
-package com.mouritech.crashnotifier.UI.ui.contacts
+package com.mouritech.crashnotifier.ui.ui.contacts
 
 import android.Manifest
 import android.app.ProgressDialog
@@ -17,7 +17,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mouritech.crashnotifier.R
-import com.mouritech.crashnotifier.UI.adapters.ContactDetails
+import com.mouritech.crashnotifier.ui.adapters.ContactDetails
 import com.mouritech.crashnotifier.data.viewmodel.EmergencyContactViewModel
 import com.mouritech.crashnotifier.databinding.ActivityAddEmergencyContactBinding
 import com.mouritech.crashnotifier.utils.Utils

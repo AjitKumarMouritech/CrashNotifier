@@ -75,10 +75,11 @@ class AddEmergencyContact : AppCompatActivity() {
     private fun setDataToAdapter(it: List<EmergencyContacts>?) {
         data.add(
             EmergencyContacts(
-                it!![0].mobile,
-                it[0].name,
+                it!![0].emergency_contact_number,
+                it[0].emergency_contact_name,
                 it[0].lat,
                 it[0].lon,
+                it[0].fcm_token
             )
         )
         val adapter = ContactDetails(data)

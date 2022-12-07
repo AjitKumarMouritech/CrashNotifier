@@ -21,7 +21,7 @@ class EmergencyContactRepositoryIMP: EmergencyContactRepository {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
                 for (item_snapshot in dataSnapshot.children) {
-                    val emergencyContacts:EmergencyContacts= EmergencyContacts(item_snapshot.child("mobile").toString(), item_snapshot.child("name").toString(),item_snapshot.child("lat").toString(),item_snapshot.child("lon").toString())
+                    val emergencyContacts:EmergencyContacts= EmergencyContacts(item_snapshot.child("mobile").toString(), item_snapshot.child("name").toString(),item_snapshot.child("lat").toString(),item_snapshot.child("lon").toString(),"")
                     emergencyContactList.apply {
                         emergencyContacts
                     }

@@ -38,11 +38,11 @@ class EmergencyContactViewModel: ViewModel() {
         }
 
     }
-    fun getEmergencyContact2(mobileNumber: String) {
+    fun getEmergencyContact2(userID: String) {
 
         emergencyContactList= ArrayList()
         val job= CoroutineScope(Dispatchers.IO).async {
-             getEmergencyContactList2(mobileNumber)
+             getEmergencyContactList2(userID)
         }
 
     }
@@ -59,7 +59,8 @@ class EmergencyContactViewModel: ViewModel() {
                         item_snapshot.child("mobile").value.toString(),
                         item_snapshot.child("name").value.toString(),
                         item_snapshot.child("lat").value.toString(),
-                        item_snapshot.child("lon").value.toString()
+                        item_snapshot.child("lon").value.toString(),
+                        item_snapshot.child("fcm_token").value.toString()
                     )
                     emergencyContactList.add(emergencyContacts)
                     Log.d("item id ", emergencyContacts.toString())
@@ -77,10 +78,10 @@ class EmergencyContactViewModel: ViewModel() {
     }
 
 
-    private suspend fun getEmergencyContactList2(mobileNumber: String):List<EmergencyContacts> {
+    private suspend fun getEmergencyContactList2(userID: String):List<EmergencyContacts> {
         val database = FirebaseDatabase.getInstance()
         val myRef = database.reference.child("emergency_contact_details")
-        myRef.orderByChild("fcm_token").equalTo(mobileNumber)
+        myRef.orderByChild("uid").equalTo(userID)
             .addListenerForSingleValueEvent(object : ValueEventListener {
 
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -90,7 +91,9 @@ class EmergencyContactViewModel: ViewModel() {
                             item_snapshot.child("emergency_contact_number").value.toString(),
                             item_snapshot.child("emergency_contact_name").value.toString(),
                             item_snapshot.child("lat").value.toString(),
-                            item_snapshot.child("long").value.toString()
+                            item_snapshot.child("long").value.toString(),
+                            item_snapshot.child("fcm_token").value.toString()
+
                         )
                         emergencyContactList.add(emergencyContacts)
                         Log.d("item id ", emergencyContacts.toString())
@@ -110,7 +113,7 @@ class EmergencyContactViewModel: ViewModel() {
     fun addData(){
         //emergencyContactList = ArrayList()
         val emergencyContacts: EmergencyContacts = EmergencyContacts(
-            mobileNumber.value.toString(),name.value.toString(),"50","70"
+            mobileNumber.value.toString(),name.value.toString(),"50","70",""
         )
         emergencyContactList.add(emergencyContacts)
         _emergencyContacts.value=emergencyContactList
@@ -132,8 +135,8 @@ class EmergencyContactViewModel: ViewModel() {
                 val addContactsMap:HashMap<String,Any> = HashMap<String,Any>()
                 addContactsMap["uid"] = userID
                 addContactsMap["user_mobile_number"] = mobileNumber
-                addContactsMap["emergency_contact_name"] =  emergency_contact.name
-                addContactsMap["emergency_contact_number"] = emergency_contact.mobile
+                addContactsMap["emergency_contact_name"] =  emergency_contact.emergency_contact_number
+                addContactsMap["emergency_contact_number"] = emergency_contact.emergency_contact_number
                 addContactsMap["lat"] =  "70"
                 addContactsMap["long"] = "50"
                 myRef.push().updateChildren(addContactsMap)

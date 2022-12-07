@@ -1,5 +1,6 @@
 package com.mouritech.crashnotifier.data.viewmodel
 
+import android.icu.text.CaseMap.Title
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.mouritech.crashnotifier.notification.NotificationData
@@ -14,8 +15,8 @@ class CrashDetectionNotificationViewModel : ViewModel() {
     val _notificationResponse: MutableLiveData<String>
         get() = notificationResponse
 
-    fun sendNotification(msg: String) {
-        val notificationData = PushNotification(NotificationData("New message", msg),"cntMj1gpTESlaS2fvI2oCT:APA91bEdUZX_LzCKa5W1yfZO6thTEKXpo6F3EGSgrHl4IffRRCmsHSE_WvRrs7fXup_bl4W0gC-kXsCh33wPvlvUrs66nvrzXsurTVOpSvkGTd6_D8yB-Z19KegJkWvVV-1UjKvtT2_e")
+    fun sendNotification(msg: String, title: String, uid:String, mobile: String, lat:String, lon:String, token:String) {
+        val notificationData = PushNotification(NotificationData(title, msg, uid, mobile,lat,lon),token)
         ApiUtilities.getInstance().sendNotification(
             notificationData
         ).enqueue(object : retrofit2.Callback<PushNotification>{

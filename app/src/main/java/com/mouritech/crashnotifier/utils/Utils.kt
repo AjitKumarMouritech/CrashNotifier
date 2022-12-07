@@ -28,7 +28,12 @@ class Utils {
         fun getUserName(preferences: SharedPreferences): String {
             return preferences.getString("user_name", "").toString()
         }
-
+        fun getUserLat(preferences: SharedPreferences): String {
+            return preferences.getString("lat", "").toString()
+        }
+        fun getUserLon(preferences: SharedPreferences): String {
+            return preferences.getString("lon", "").toString()
+        }
         fun getFcmToken(preferences: SharedPreferences): String {
             return preferences.getString("fcm_token", "").toString()
         }

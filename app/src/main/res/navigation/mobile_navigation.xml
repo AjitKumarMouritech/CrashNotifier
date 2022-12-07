@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/nav_menu_nearest_emergency_contacts"
-        android:name="com.mouritech.crashnotifier.ui.ui.contacts.NearEmergencyContacts"
+        android:name="com.mouritech.crashnotifier.ui.ui.contacts.DashboardFragment"
         android:label="@string/nav_menu_nearest_emergency_contacts"
-        tools:layout="@layout/fragment_near_emergency_contact" />
+        tools:layout="@layout/fragment_dashboard" />
 
     <fragment
         android:id="@+id/nav_menu_hospitals_list"

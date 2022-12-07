@@ -124,8 +124,8 @@ class SignupViewModel : ViewModel() {
                 val addContactsMap:HashMap<String,String> = HashMap<String,String>()
                 addContactsMap["uid"] = uid
                 addContactsMap["user_mobile_number"] = this.mobileNumber.value.toString()
-                addContactsMap["emergency_contact_name"] =  emergency_contact.name
-                addContactsMap["emergency_contact_number"] = emergency_contact.mobile
+                addContactsMap["emergency_contact_name"] =  emergency_contact.emergency_contact_name
+                addContactsMap["emergency_contact_number"] = emergency_contact.emergency_contact_number
                 addContactsMap["lat"] =  "70"
                 addContactsMap["long"] = "50"
                 addContactsMap["fcm_token"] = fcmToken

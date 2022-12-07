@@ -10,8 +10,188 @@
             type="String" />
     </data>
 
-    <FrameLayout
-        android:id="@+id/container"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        tools:context=".ui.SignupActivity">
+
+
+        <TextView
+            android:id="@+id/tv_header"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:lineSpacingExtra="4sp"
+            style="@style/HeadingWhite"
+            android:text="@string/emergency"
+            android:gravity="center"
+            android:textColor="#333333"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:background="@color/button_blue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:foregroundGravity="center"
+            android:layout_marginTop="100dp"
+            android:layout_marginBottom="30dp"
+            app:layout_constrainedHeight="true"
+            app:layout_constraintBottom_toTopOf="@+id/btnCallNow"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_header"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tvUser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text="UserDetails:-"
+                android:padding="10dp"
+                android:textColor="@color/red"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+                    android:text="Name: "
+                    android:padding="10dp"
+                    android:textColor="@color/red"/>
+            <TextView
+                android:id="@+id/tvUName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:padding="10dp"
+                android:textColor="@color/red"/>
+            </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:text="Blood Group: "
+                android:padding="10dp"
+                android:textColor="@color/red"/>
+            <TextView
+                android:id="@+id/tvBloodGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:padding="10dp"
+                android:textColor="@color/red"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:text="DOB: "
+                android:padding="10dp"
+                android:textColor="@color/red"/>
+            <TextView
+                android:id="@+id/tvDOB"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:padding="10dp"
+                android:textColor="@color/red"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:text="Health Details: "
+                android:padding="10dp"
+                android:textColor="@color/red"/>
+            <TextView
+                android:id="@+id/tvHealthDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:padding="10dp"
+                android:textColor="@color/red"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:text="Accident Location: "
+                android:padding="10dp"
+                android:textColor="@color/red"/>
+            <TextView
+                android:id="@+id/tvLatLon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:padding="10dp"
+                android:textColor="@color/red"/>
+        </LinearLayout>
+            <Button
+                android:id="@+id/btnCall"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:textSize="10dp"
+                android:layout_gravity="center_horizontal"
+                android:padding="5dp"
+                android:text="Get Direction"
+                />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:text="Mobile: "
+                android:padding="10dp"
+                android:textColor="@color/red"/>
+            <TextView
+                android:id="@+id/tvMobile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="12dp"
+                android:padding="10dp"
+                android:textColor="@color/red"/>
+        </LinearLayout>
+        </LinearLayout>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnCallNow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/callnow"
+            style="@style/BlueButton"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:ignore="UsingOnClickInXml" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

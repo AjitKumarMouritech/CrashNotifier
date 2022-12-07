@@ -24,11 +24,11 @@ android {
             keyAlias 'crashnotifier'
             keyPassword 'android'
             storePassword 'android'
-            storeFile file("C:/Users/alekhyas/AndroidStudioProjects/CrashNotifier/app/crashnotifier")
+            storeFile file("/Users/ajit/AndroidStudioProjects/CrashNotifierdec/CrashNotifier/app/crashnotifier")
         }
 
         debug {
-           storeFile file("C:/Users/alekhyas/AndroidStudioProjects/CrashNotifier/app/crashnotifier")
+           storeFile file("/Users/ajit/AndroidStudioProjects/CrashNotifierdec/CrashNotifier/app/crashnotifier")
             keyAlias 'crashnotifier'
             keyPassword 'android'
             storePassword 'android'
@@ -71,6 +71,8 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.7.0'
     implementation 'com.google.android.gms:play-services-maps:18.0.2'
+    implementation 'com.google.android.gms:play-services-location:21.0.1'
+
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'com.google.firebase:firebase-database:20.0.4'
     implementation 'com.google.firebase:firebase-messaging:23.1.0'

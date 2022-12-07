@@ -24,8 +24,8 @@ class ContactDetails(private val mList: List<EmergencyContacts>) : RecyclerView.
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val ItemsViewModel = mList[position]
-        holder.name.text  = ItemsViewModel.name
-        holder.mobileNumber.text = ItemsViewModel.mobile
+        holder.name.text  = ItemsViewModel.emergency_contact_name
+        holder.mobileNumber.text = ItemsViewModel.emergency_contact_number
     }
 
     override fun getItemCount(): Int {

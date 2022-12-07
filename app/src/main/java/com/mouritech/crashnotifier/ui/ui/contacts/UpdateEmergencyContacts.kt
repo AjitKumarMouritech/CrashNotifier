@@ -63,7 +63,7 @@ class UpdateEmergencyContacts : Fragment() {
         activity.let { it ->
             viewModel = ViewModelProvider(it!!).get(EmergencyContactViewModel::class.java)
             val preferences = this.requireActivity().getSharedPreferences("MySharedPref", AppCompatActivity.MODE_PRIVATE)
-            viewModel.getEmergencyContact2( Utils.getFcmToken(preferences))
+            viewModel.getEmergencyContact2( Utils.getUserID(preferences))
             viewModel._emergencyContacts.observe(viewLifecycleOwner, Observer {data->
                 emergencyContactList = viewModel._emergencyContacts.value!!
                 binding.contactsRV.layoutManager = LinearLayoutManager(requireActivity())

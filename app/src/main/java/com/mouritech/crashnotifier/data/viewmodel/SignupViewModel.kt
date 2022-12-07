@@ -9,6 +9,7 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.messaging.FirebaseMessaging
+import com.mouritech.crashnotifier.data.model.EmergencyContacts
 import com.mouritech.crashnotifier.ui.AddEmergencyContact
 
 import com.mouritech.crashnotifier.utils.Utils
@@ -122,14 +123,22 @@ class SignupViewModel : ViewModel() {
 
             for (emergency_contact in AddEmergencyContact.data) {
                 val addContactsMap:HashMap<String,String> = HashMap<String,String>()
-                addContactsMap["uid"] = uid
-                addContactsMap["user_mobile_number"] = this.mobileNumber.value.toString()
-                addContactsMap["emergency_contact_name"] =  emergency_contact.emergency_contact_name
-                addContactsMap["emergency_contact_number"] = emergency_contact.emergency_contact_number
-                addContactsMap["lat"] =  "70"
-                addContactsMap["long"] = "50"
-                addContactsMap["fcm_token"] = fcmToken
-                database.child("emergency_contact_details").push().setValue(addContactsMap)
+
+                if (usersList.isNotEmpty() && usersList.contains(emergency_contact.emergency_contact_number)){
+                    getFCMFromDB(emergency_contact.emergency_contact_number,uid,emergency_contact)
+                    //addContactsMap["fcm_token"] = fcmToken
+                }
+                else{
+                    addContactsMap["fcm_token"] = "NA"
+                    addContactsMap["uid"] = uid
+                    addContactsMap["user_mobile_number"] = this.mobileNumber.value.toString()
+                    addContactsMap["emergency_contact_name"] =  emergency_contact.emergency_contact_name
+                    addContactsMap["emergency_contact_number"] = emergency_contact.emergency_contact_number
+                    addContactsMap["lat"] =  "70"
+                    addContactsMap["long"] = "50"
+                    database.child("emergency_contact_details").push().setValue(addContactsMap)
+                }
+
             }
 
             AddEmergencyContact.data = ArrayList()
@@ -142,6 +151,37 @@ class SignupViewModel : ViewModel() {
             Toast.makeText(signupActivity, "exception while adding emergency contacts $exception", Toast.LENGTH_SHORT)
                 .show()
         }
+    }
+
+    private fun getFCMFromDB(
+        emergencyContactNumber: String,
+        uid: String,
+        emergency_contact: EmergencyContacts
+    ) {
+        FirebaseAuth.getInstance()
+        val myRef = database.child("signup")
+        myRef.orderByChild("mobile_number").equalTo(emergencyContactNumber)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    for (each_item_snapshot in dataSnapshot.children) {
+                        val addContactsMap:HashMap<String,String> = HashMap<String,String>()
+                        fcmToken = each_item_snapshot.child("fcm_token").value.toString()
+                        addContactsMap["fcm_token"] = fcmToken
+                        addContactsMap["uid"] = uid
+                        addContactsMap["user_mobile_number"] = mobileNumber.value.toString()
+                        addContactsMap["emergency_contact_name"] =  emergency_contact.emergency_contact_name
+                        addContactsMap["emergency_contact_number"] = emergency_contact.emergency_contact_number
+                        addContactsMap["lat"] =  "70"
+                        addContactsMap["long"] = "50"
+                        database.child("emergency_contact_details").push().setValue(addContactsMap)
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Log.d("Update view model", error.toString())
+                }
+
+            })
     }
 
     fun checkDuplication(signupActivity: SignupActivity) {

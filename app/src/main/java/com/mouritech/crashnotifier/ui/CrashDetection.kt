@@ -179,11 +179,15 @@ class CrashDetection : AppCompatActivity() /*, SensorEventListener*/ {
 
                     Toast.makeText(this@CrashDetection, "Fall detected", Toast.LENGTH_SHORT).show();
                     //viewModel = ViewModelProvider(CrashDetection@this).get(CrashDetectionNotificationViewModel::class.java)
-                    viewModel.sendNotification("Crash happening with your friend","Some Emergency", Utils.getUserID(preferences), Utils.mobileNumber(preferences),
-                        lat, lon, emergencyContact.fcm_token)
-                    if (checkPermissionForSMS(this@CrashDetection)) {
-                        emergencyNumber = emergencyContact.emergency_contact_number
-                        sendSMS(lat,lon, emergencyContact.emergency_contact_number)
+
+                    if (element.fcm_token=="NA"){
+                        viewModel.sendNotification("Crash happening with your friend","Some Emergency", Utils.getUserID(preferences), Utils.mobileNumber(preferences),
+                            lat, lon, emergencyContact.fcm_token)
+                    }else{
+                        if (checkPermissionForSMS(this@CrashDetection)) {
+                            emergencyNumber = emergencyContact.emergency_contact_number
+                            sendSMS(lat,lon, emergencyContact.emergency_contact_number)
+                        }
                     }
                     viewModel._notificationResponse.observe(this@CrashDetection, Observer {
                         Toast.makeText(this@CrashDetection, it, Toast.LENGTH_SHORT).show();

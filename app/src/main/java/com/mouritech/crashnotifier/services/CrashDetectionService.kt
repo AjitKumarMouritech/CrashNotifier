@@ -47,7 +47,7 @@ class CrashDetectionService : Service(), SensorEventListener {
         val notificationIntent = Intent(this, Main2Activity::class.java)
         val pendingIntent = PendingIntent.getActivity(
             this,
-            0, notificationIntent, 0
+            0, notificationIntent, PendingIntent.FLAG_IMMUTABLE
         )
         val notification = NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle("Foreground Service Kotlin Example")

@@ -16,10 +16,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
 import com.mouritech.crashnotifier.R
 import com.mouritech.crashnotifier.ui.adapters.ContactDetails
 import com.mouritech.crashnotifier.data.viewmodel.EmergencyContactViewModel
 import com.mouritech.crashnotifier.databinding.ActivityAddEmergencyContactBinding
+import com.mouritech.crashnotifier.ui.SignupActivity
 import com.mouritech.crashnotifier.utils.Utils
 
 
@@ -31,6 +34,8 @@ class AddEmergencyContactFromPhoneContacts : AppCompatActivity() {
     private val PERMISSIONS_REQUEST_READ_CONTACTS = 100
     lateinit var contactName1 : AutoCompleteTextView
     lateinit var contactNameAdapter: ArrayAdapter<String>
+    var usersList: ArrayList<String> = ArrayList()
+    lateinit var fcmToken : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,8 +60,8 @@ class AddEmergencyContactFromPhoneContacts : AppCompatActivity() {
             else{
                 viewModel.mobileNumber.value = numbersArrayList!![index]
                 viewModel.name.value = contactName1.text.toString()
-                viewModel.addData()
-                Toast.makeText(this,viewModel.mobileNumber.value,Toast.LENGTH_SHORT).show()
+                checkDuplication()
+
             }
 
         }
@@ -82,6 +87,35 @@ class AddEmergencyContactFromPhoneContacts : AppCompatActivity() {
             }
         }
 
+    }
+
+    private fun checkDuplication() {
+        var mAuth: FirebaseAuth?=null
+        usersList= ArrayList()
+        mAuth= FirebaseAuth.getInstance()
+
+        var database: DatabaseReference = FirebaseDatabase.getInstance().reference
+        database.child("signup").addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (each_item_snapshot in snapshot.children) {
+                    usersList.add(each_item_snapshot.child("mobile_number").value.toString())
+                    var number = viewModel.mobileNumber.value?.replace(" ","")
+                    if (each_item_snapshot.child("mobile_number").value.toString() == number){
+                        fcmToken = each_item_snapshot.child("fcm_token").value.toString()
+                        break
+                        //Toast.makeText(this,viewModel.mobileNumber.value,Toast.LENGTH_SHORT).show()
+                    }
+                    else{
+                        fcmToken = "NA"
+                    }
+                }
+
+                viewModel.addData(fcmToken)
+            }
+            override fun onCancelled(error: DatabaseError) {
+               // Toast.makeText(AddEmergencyContactFromPhoneContacts::class.java, "Failed to fetch data $error", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     private fun checkContactPermission() {

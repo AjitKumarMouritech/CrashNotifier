@@ -56,7 +56,7 @@ class AddEmergencyContact : AppCompatActivity() {
                 viewModel.emergencyContactList = ArrayList()
                 binding.mobileNumber.setText("")
                 binding.contactName.setText("")
-                viewModel.addData()
+                viewModel.addData("")
             }
         }
 

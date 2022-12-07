@@ -347,7 +347,7 @@ class Main2Activity : AppCompatActivity(), SensorEventListener {
                 Toast.makeText(this@Main2Activity, "Permission Denied", Toast.LENGTH_SHORT).show()
             }
         }
-        if (requestCode == REQUEST_PERMISSION_SMS) {
+        /*if (requestCode == REQUEST_PERMISSION_SMS) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 //sendSMS()
                 //  btnStartupdate.isEnabled = false
@@ -355,7 +355,7 @@ class Main2Activity : AppCompatActivity(), SensorEventListener {
             } else {
                 Toast.makeText(this@Main2Activity, "Permission Denied", Toast.LENGTH_SHORT).show()
             }
-        }
+        }*/
     }
 
 

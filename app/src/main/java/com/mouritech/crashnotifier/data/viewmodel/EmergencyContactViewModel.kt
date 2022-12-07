@@ -110,10 +110,10 @@ class EmergencyContactViewModel: ViewModel() {
         return emergencyContactList
     }
 
-    fun addData(){
+    fun addData(fcm : String){
         //emergencyContactList = ArrayList()
         val emergencyContacts: EmergencyContacts = EmergencyContacts(
-            mobileNumber.value.toString(),name.value.toString(),"50","70",""
+            mobileNumber.value.toString(),name.value.toString(),"50","70", fcm
         )
         emergencyContactList.add(emergencyContacts)
         _emergencyContacts.value=emergencyContactList
@@ -135,10 +135,11 @@ class EmergencyContactViewModel: ViewModel() {
                 val addContactsMap:HashMap<String,Any> = HashMap<String,Any>()
                 addContactsMap["uid"] = userID
                 addContactsMap["user_mobile_number"] = mobileNumber
-                addContactsMap["emergency_contact_name"] =  emergency_contact.emergency_contact_number
+                addContactsMap["emergency_contact_name"] =  emergency_contact.emergency_contact_name
                 addContactsMap["emergency_contact_number"] = emergency_contact.emergency_contact_number
                 addContactsMap["lat"] =  "70"
                 addContactsMap["long"] = "50"
+                addContactsMap["fcm_token"] = emergency_contact.fcm_token
                 myRef.push().updateChildren(addContactsMap)
             }
             Toast.makeText(context, "Contacts added successfully", Toast.LENGTH_SHORT)

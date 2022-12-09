@@ -20,11 +20,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.location.*
-import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.HttpRequestFactory
+import com.google.firebase.crashlytics.buildtools.reloc.org.apache.http.client.HttpResponseException
+import com.google.logging.type.HttpRequest
 import com.mouritech.crashnotifier.R
 import com.mouritech.crashnotifier.data.model.EmergencyContacts
 import com.mouritech.crashnotifier.data.viewmodel.EmergencyContactViewModel
@@ -41,6 +41,10 @@ class NearHospitalsList : Fragment() {
     val PERMISSION_ID = 42
     private var lat:String= ""
     private var lon:String= ""
+    var PROXIMITY_RADIUS = 10000
+    private val PLACES_SEARCH_URL = "https://maps.googleapis.com/maps/api/place/search/json?"
+
+    private val PRINT_AS_STRING = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -68,45 +72,50 @@ class NearHospitalsList : Fragment() {
         if (mapReady && emergencyContactList!=null){
             mMap.clear()
 
-            emergencyContactList.forEach{
-
-                // Creating a marker
-                // Creating a marker
-                val markerOptions = MarkerOptions()
-
-                // Setting the position for the marker
-
-                // Setting the position for the marker
-                val lat = it.lat
-                val lon = it.lon
-
+            if (lat.isNotEmpty() && lon.isNotEmpty())
+            {
+               /* val markerOptions = MarkerOptions()
                 markerOptions.position(LatLng( lat.toDouble(),lon.toDouble()))
-
-                // Setting the title for the marker.
-                // This will be displayed on taping the marker
-
-                // Setting the title for the marker.
-                // This will be displayed on taping the marker
-                markerOptions.title(it.lat + " : " + it.lon)
-
-                // Clears the previously touched position
-
-                // Clears the previously touched position
-
-                // Animating to the touched position
-
-                // Animating to the touched position
-
-                mMap.animateCamera(CameraUpdateFactory.newLatLng(LatLng(it.lat.toDouble(),it.lon.toDouble())))
-
-                // Placing a marker on the touched position
+                markerOptions.title("$lat : $lon")
+                mMap.animateCamera(CameraUpdateFactory.newLatLng(LatLng(lat.toDouble(),lon.toDouble())))
                 val latlon:LatLng = LatLng(lat.toDouble(),lon.toDouble())
-                // Placing a marker on the touched position
                 mMap.addMarker(markerOptions)
-                mMap.moveCamera(CameraUpdateFactory.newLatLng(latlon))
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(latlon))*/
+
+                //todo delete following lines
+                val dataTransfer = arrayOfNulls<Any>(2)
+                val getNearbyPlacesData = GetNearbyPlacesData()
+                 url = getUrl(lat.toDouble(),lon.toDouble(), "hospital")
+                dataTransfer[0] = mMap
+                dataTransfer[1] = url
+                getNearbyPlacesData.execute(dataTransfer)
             }
+
         }
     }
+
+
+
+    private fun getUrl(latitude: Double, longitude: Double, nearbyPlace: String): String {
+
+        val googlePlaceUrl =
+            StringBuilder("https://maps.googleapis.com/maps/api/place/nearbysearch/json?")
+        googlePlaceUrl.append("location=$latitude,$longitude")
+        googlePlaceUrl.append("&radius=$PROXIMITY_RADIUS")
+        googlePlaceUrl.append("&type=$nearbyPlace")
+        googlePlaceUrl.append("&sensor=true")
+
+        //Todo: add your google api key here
+
+        //Todo: add your google api key here
+        googlePlaceUrl.append("&key=" + "AIzaSyAQvvIMOfFeEpyxRTL7yg4XayZ06StnnFU")
+
+        Log.d("MapsActivity", "url = $googlePlaceUrl")
+
+        return googlePlaceUrl.toString()
+
+    }
+
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -136,6 +145,7 @@ class NearHospitalsList : Fragment() {
                         } else {
                             lat= location.latitude.toString()
                             lon= location.longitude.toString()
+                            updateMap()
                             //findViewById<TextView>(R.id.latTextView).text = location.latitude.toString()
                             // findViewById<TextView>(R.id.lonTextView).text = location.longitude.toString()
                         }
@@ -219,5 +229,8 @@ class NearHospitalsList : Fragment() {
                 getLastLocation()
             }
         }
+    }
+    companion object{
+        lateinit var url:String
     }
 }

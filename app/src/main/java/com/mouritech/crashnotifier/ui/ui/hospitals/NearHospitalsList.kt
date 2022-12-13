@@ -108,7 +108,7 @@ class NearHospitalsList : Fragment() {
         //Todo: add your google api key here
 
         //Todo: add your google api key here
-        googlePlaceUrl.append("&key=" + "AIzaSyAQvvIMOfFeEpyxRTL7yg4XayZ06StnnFU")
+        googlePlaceUrl.append("&key=" + "2409:4070:208e:5cf5:d528:c6c8:f22:3b64")
 
         Log.d("MapsActivity", "url = $googlePlaceUrl")
 

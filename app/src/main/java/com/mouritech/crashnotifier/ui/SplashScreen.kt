@@ -40,4 +40,9 @@ class SplashScreen : AppCompatActivity() {
         val sh = getSharedPreferences("MySharedPref", MODE_PRIVATE)
         return sh.getInt("login", 0)
     }
+
+    private fun carouselScreens(): Int {
+        val sh = getSharedPreferences("MySharedPref", MODE_PRIVATE)
+        return sh.getInt("carousel_screens", 0)
+    }
 }

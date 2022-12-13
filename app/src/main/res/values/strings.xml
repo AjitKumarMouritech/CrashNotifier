@@ -78,4 +78,12 @@
     <string name="callnow">Call Now</string>
 
     <string name="default_notification_channel_id">12345</string>
+    <string name="proceed">Proceed</string>
+    <string name="location">Location</string>
+    <string name="sms">SMS</string>
+    <string name="swipe_next">Swipe Next</string>
+    <string name="plz_proceed">Please Proceed</string>
+    <string name="location_description">Please grant location permission as Crash Notifier app will access your location to send location details to your emergency contacts in case of any accidents.</string>
+    <string name="sms_description">Please grant SMS permission as Crash Notifier app will access your SMS permission to send SMS to your emergency contacts in case of any accidents</string>
+
 </resources>

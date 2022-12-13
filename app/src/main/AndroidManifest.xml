@@ -93,6 +93,7 @@
       <activity android:name=".ui.AddEmergencyContact"></activity>
       <activity android:name=".ui.LoginActivity"></activity>
       <activity android:name=".ui.SignupActivity"></activity>
+      <activity android:name=".ui.ViewPagerActivity"></activity>
       <activity android:name=".ui.Main2Activity"
           android:screenOrientation="portrait">
       </activity>

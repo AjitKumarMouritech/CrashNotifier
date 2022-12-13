@@ -129,7 +129,7 @@ class LoginActivity  : AppCompatActivity() {
                     setUserName()
                     successfullyLoggedIn("LoggedIn",true)
                     Utils.stopProgressBar(progress)
-                   val intent = Intent(this , Main2Activity::class.java)
+                    val intent = Intent(this , ViewPagerActivity::class.java)
                     startActivity(intent)
                     finish()
                 } else {

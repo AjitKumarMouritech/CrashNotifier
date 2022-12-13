@@ -116,7 +116,6 @@ class Main2Activity : AppCompatActivity(), SensorEventListener {
         appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.nav_menu_nearest_emergency_contacts,
-                R.id.nav_menu_hospitals_list,
                 R.id.nav_menu_update_emergency_contacts,
                 R.id.nav_update_health_details
             ), drawerLayout

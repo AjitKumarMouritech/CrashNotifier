@@ -74,7 +74,7 @@ class CrashDetectionService : Service(), SensorEventListener {
     override fun onSensorChanged(event: SensorEvent?) {
         if(event?.sensor?.type == Sensor.TYPE_ACCELEROMETER){
             //   Log.e("","x: "+ event.values[0] +" y:"+ event.values[1] +" z:"+ event.values[2] )
-            crashDetection(event.values[0].toDouble(),event.values[1].toDouble(),event.values[2].toDouble())
+           // crashDetection(event.values[0].toDouble(),event.values[1].toDouble(),event.values[2].toDouble())
 
         }
     }

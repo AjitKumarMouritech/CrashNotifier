@@ -15,7 +15,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Looper
 import android.provider.Settings
-import android.telephony.SmsManager
 import android.view.Menu
 import android.view.View
 import android.widget.TextView
@@ -145,19 +144,21 @@ class Main2Activity : AppCompatActivity(), SensorEventListener {
     private fun crashDetection(xValue: Double, yValue: Double, zValue: Double) {
 
         val fallThreshold = Math.sqrt((xValue * xValue + yValue * yValue + zValue * zValue) as Double)
-        if (fallThreshold < 1.0f) {
+        if (fallThreshold < 0.5f) {
             crashDetected()
         }
-        var rootSquare = Math.sqrt(Math.pow(xValue, 2.0) + Math.pow(yValue, 2.0) + Math.pow(zValue, 2.0
+       /* var rootSquare = Math.sqrt(Math.pow(xValue, 2.0) + Math.pow(yValue, 2.0) + Math.pow(zValue, 2.0
         ));
         if(rootSquare<2.0) {
             crashDetected()
-        }
+        }*/
 
     }
 
     private fun crashDetected() {
         val intent = Intent(this, CrashDetection::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+
         // start your next activity
         startActivity(intent)
     }

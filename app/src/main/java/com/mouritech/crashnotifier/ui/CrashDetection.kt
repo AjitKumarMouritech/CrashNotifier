@@ -77,6 +77,7 @@ class CrashDetection : AppCompatActivity() /*, SensorEventListener*/ {
             pauseTimer()
             resetTimer()
             crashCount=0;
+            finish()
 
         }
         tts = TextToSpeech(
@@ -128,7 +129,7 @@ class CrashDetection : AppCompatActivity() /*, SensorEventListener*/ {
             // Log and toast
             //val msg = getString(R.string.msg_token_fmt, token)
             Log.d("Token", token)
-            Toast.makeText(baseContext, token, Toast.LENGTH_SHORT).show()
+           // Toast.makeText(baseContext, token, Toast.LENGTH_SHORT).show()
         })
     }
 
@@ -167,7 +168,7 @@ class CrashDetection : AppCompatActivity() /*, SensorEventListener*/ {
             override fun onTick(millisUntilFinished: Long) {
                 pauseOffSet = time_in_milliseconds - millisUntilFinished
                // tv_timer.text= (millisUntilFinished/1000).toString()
-                Toast.makeText(this@CrashDetection, pauseOffSet.toString(), Toast.LENGTH_SHORT).show();
+              //  Toast.makeText(this@CrashDetection, pauseOffSet.toString(), Toast.LENGTH_SHORT).show();
 
             }
 
@@ -177,7 +178,7 @@ class CrashDetection : AppCompatActivity() /*, SensorEventListener*/ {
                     val emergencyContact:EmergencyContacts= element
                     val preferences = getSharedPreferences("MySharedPref", AppCompatActivity.MODE_PRIVATE)
 
-                    Toast.makeText(this@CrashDetection, "Fall detected", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(this@CrashDetection, "Fall detected", Toast.LENGTH_SHORT).show();
                     //viewModel = ViewModelProvider(CrashDetection@this).get(CrashDetectionNotificationViewModel::class.java)
 
                     if (element.fcm_token=="NA"){
@@ -190,7 +191,7 @@ class CrashDetection : AppCompatActivity() /*, SensorEventListener*/ {
                         }
                     }
                     viewModel._notificationResponse.observe(this@CrashDetection, Observer {
-                        Toast.makeText(this@CrashDetection, it, Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(this@CrashDetection, it, Toast.LENGTH_SHORT).show();
                         crashCount = 0;
                     })
                     pauseOffSet =0
@@ -322,10 +323,11 @@ class CrashDetection : AppCompatActivity() /*, SensorEventListener*/ {
 
     private fun sendSMS(lat: String, lon: String, emergencyNumber: String) {
         val preferences = getSharedPreferences("MySharedPref", AppCompatActivity.MODE_PRIVATE)
-
+        val strUri =
+            "http://maps.google.com/maps?q=loc:$lat,$lon"
         val smsManager: SmsManager = SmsManager.getDefault()
         smsManager.sendTextMessage(emergencyNumber, null, "Emergency Message\nCrash happening with your friend, Please call on " +
-                "- ${Utils.mobileNumber(preferences)}\nAccident Location is:- $lat $lon", null, null)
+                "- ${Utils.mobileNumber(preferences)}\nAccident Location is:- $strUri", null, null)
 
     }
     private fun checkPermissionForSMS(context: Context): Boolean {

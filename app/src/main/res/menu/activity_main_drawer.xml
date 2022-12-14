@@ -6,20 +6,21 @@
 
 
         <item
-            android:id="@+id/nav_menu_update_health_details"
-            android:icon="@drawable/common_google_signin_btn_icon_dark"
-            android:title="@string/menu_update_health_details" />
-        <item
-            android:id="@+id/nav_near_emergency_contacts"
+            android:id="@+id/nav_menu_nearest_emergency_contacts"
             android:icon="@drawable/ic_menu_camera"
             android:title="@string/nav_menu_nearest_emergency_contacts" />
         <item
-            android:id="@+id/nav_menu_hospital_medical_shops_list"
+            android:id="@+id/nav_menu_hospitals_list"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/menu_hospital_medical_shops_list" />
+            android:title="@string/menu_hospital_medical_shops_list"
+            android:visible="false"/>
         <item
-            android:id="@+id/nav_update_emergency_contacts"
+            android:id="@+id/nav_menu_update_emergency_contacts"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/menu_update_emergency_contacts" />
+        <item
+            android:id="@+id/nav_update_health_details"
+            android:icon="@color/button_blue"
+            android:title="@string/menu_update_health_details"/>
 
 </menu>

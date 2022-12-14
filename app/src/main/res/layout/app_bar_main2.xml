@@ -27,13 +27,13 @@
                 app:popupTheme="@style/Theme.CrashNotifier.PopupOverlay" />
 
         </com.google.android.material.appbar.AppBarLayout>
-
+<!--
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
            android:src="@drawable/notification_icon2"
             android:layout_weight="0.9"
-            />
+            />-->
 
     </LinearLayout>
 

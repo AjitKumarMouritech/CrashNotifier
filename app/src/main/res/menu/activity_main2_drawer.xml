@@ -12,7 +12,8 @@
             android:visible="false"
             android:id="@+id/nav_menu_hospitals_list"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/menu_hospital_medical_shops_list" />
+            android:title="@string/menu_hospital_medical_shops_list"
+            android:visible="false"/>
         <item
             android:id="@+id/nav_menu_update_emergency_contacts"
             android:icon="@drawable/ic_menu_slideshow"

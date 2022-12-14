@@ -50,7 +50,7 @@ class Main2Activity : AppCompatActivity(), SensorEventListener {
     private val INTERVAL: Long = 2000
     private val FASTEST_INTERVAL: Long = 1000
     lateinit var mLastLocation: Location
-    internal lateinit var mLocationRequest: LocationRequest
+    private lateinit var mLocationRequest: LocationRequest
     private val REQUEST_PERMISSION_LOCATION = 10
     private val REQUEST_PERMISSION_SMS = 20
 

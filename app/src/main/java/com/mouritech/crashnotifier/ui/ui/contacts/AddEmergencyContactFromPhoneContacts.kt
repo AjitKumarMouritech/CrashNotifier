@@ -19,11 +19,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.mouritech.crashnotifier.R
-import com.mouritech.crashnotifier.ui.adapters.ContactDetails
 import com.mouritech.crashnotifier.data.viewmodel.EmergencyContactViewModel
 import com.mouritech.crashnotifier.databinding.ActivityAddEmergencyContactBinding
-import com.mouritech.crashnotifier.ui.SignupActivity
+import com.mouritech.crashnotifier.ui.adapters.ContactDetails
 import com.mouritech.crashnotifier.utils.Utils
+import io.michaelrocks.libphonenumber.android.PhoneNumberUtil
 
 
 class AddEmergencyContactFromPhoneContacts : AppCompatActivity() {
@@ -36,6 +36,8 @@ class AddEmergencyContactFromPhoneContacts : AppCompatActivity() {
     lateinit var contactNameAdapter: ArrayAdapter<String>
     var usersList: ArrayList<String> = ArrayList()
     lateinit var fcmToken : String
+    lateinit var lat : String
+    lateinit var long : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,7 +60,8 @@ class AddEmergencyContactFromPhoneContacts : AppCompatActivity() {
                 Toast.makeText(this,"Invalid contact number,please try again with valid one",Toast.LENGTH_SHORT).show()
             }
             else{
-                viewModel.mobileNumber.value = numbersArrayList!![index]
+                val num = getPhoneNumberWithoutCountryCode(numbersArrayList!![index])
+                viewModel.mobileNumber.value = num
                 viewModel.name.value = contactName1.text.toString()
                 checkDuplication()
 
@@ -89,6 +92,12 @@ class AddEmergencyContactFromPhoneContacts : AppCompatActivity() {
 
     }
 
+    private fun getPhoneNumberWithoutCountryCode(phoneNo: String): String? {
+        val phoneInstance: PhoneNumberUtil = PhoneNumberUtil.createInstance(this)
+        val phoneNumber = phoneInstance.parse(phoneNo, null)
+        return phoneInstance.getNationalSignificantNumber(phoneNumber)
+    }
+
     private fun checkDuplication() {
         var mAuth: FirebaseAuth?=null
         usersList= ArrayList()
@@ -102,15 +111,19 @@ class AddEmergencyContactFromPhoneContacts : AppCompatActivity() {
                     var number = viewModel.mobileNumber.value?.replace(" ","")
                     if (each_item_snapshot.child("mobile_number").value.toString() == number){
                         fcmToken = each_item_snapshot.child("fcm_token").value.toString()
+                        lat = each_item_snapshot.child("lat").value.toString()
+                        long = each_item_snapshot.child("long").value.toString()
                         break
                         //Toast.makeText(this,viewModel.mobileNumber.value,Toast.LENGTH_SHORT).show()
                     }
                     else{
                         fcmToken = "NA"
+                        lat = "0"
+                        long = "0"
                     }
                 }
 
-                viewModel.addData(fcmToken)
+                viewModel.addData(fcmToken,lat,long)
             }
             override fun onCancelled(error: DatabaseError) {
                // Toast.makeText(AddEmergencyContactFromPhoneContacts::class.java, "Failed to fetch data $error", Toast.LENGTH_SHORT).show()

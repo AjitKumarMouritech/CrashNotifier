@@ -110,10 +110,10 @@ class EmergencyContactViewModel: ViewModel() {
         return emergencyContactList
     }
 
-    fun addData(fcm : String){
+    fun addData(fcm: String, lat: String, long: String){
         //emergencyContactList = ArrayList()
         val emergencyContacts: EmergencyContacts = EmergencyContacts(
-            mobileNumber.value.toString(),name.value.toString(),"50","70", fcm
+            mobileNumber.value.toString(),name.value.toString(),lat,long, fcm
         )
         emergencyContactList.add(emergencyContacts)
         _emergencyContacts.value=emergencyContactList
@@ -137,8 +137,8 @@ class EmergencyContactViewModel: ViewModel() {
                 addContactsMap["user_mobile_number"] = mobileNumber
                 addContactsMap["emergency_contact_name"] =  emergency_contact.emergency_contact_name
                 addContactsMap["emergency_contact_number"] = emergency_contact.emergency_contact_number
-                addContactsMap["lat"] =  "70"
-                addContactsMap["long"] = "50"
+                addContactsMap["lat"] =  emergency_contact.lat
+                addContactsMap["long"] = emergency_contact.lon
                 addContactsMap["fcm_token"] = emergency_contact.fcm_token
                 myRef.push().updateChildren(addContactsMap)
             }

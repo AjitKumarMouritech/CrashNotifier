@@ -1,10 +1,13 @@
 package com.mouritech.crashnotifier.data.viewmodel
 
 import android.content.Intent
+import android.location.Location
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -26,11 +29,17 @@ class SignupViewModel : ViewModel() {
     var bloodGroup: MutableLiveData<String> = MutableLiveData()
     var healthData: MutableLiveData<String> = MutableLiveData()
     lateinit var fcmToken : String
+    lateinit var lat : String
+    lateinit var long : String
+    lateinit var mLastLocation: Location
+    private lateinit var mLocationRequest: LocationRequest
+    private val REQUEST_PERMISSION_LOCATION = 10
 
     private var mAuth: FirebaseAuth?=null
     private lateinit var database: DatabaseReference
     var dataAdded: Boolean = false
     lateinit var usersList: ArrayList<String>
+
 
     fun checkElement(
         usersList: ArrayList<String>,
@@ -47,6 +56,9 @@ class SignupViewModel : ViewModel() {
     }
 
     fun addData(signupActivity: SignupActivity) {
+        val preferences = signupActivity.getSharedPreferences("MySharedPref", AppCompatActivity.MODE_PRIVATE)
+        val lat = Utils.getUserLat(preferences)
+        val long = Utils.getUserLon(preferences)
         dataAdded = true
         val newUserDataMap:HashMap<String,String> = HashMap<String,String>()
         newUserDataMap["user_name"] = this.userName.value.toString()
@@ -56,6 +68,8 @@ class SignupViewModel : ViewModel() {
         newUserDataMap["blood_group"] = this.bloodGroup.value.toString()
         newUserDataMap["health_data"] = this.healthData.value.toString()
         newUserDataMap["fcm_token"] = fcmToken
+        newUserDataMap["lat"] = lat
+        newUserDataMap["long"] = long
 
         addDataToFirebase(signupActivity,newUserDataMap)
     }
@@ -134,8 +148,8 @@ class SignupViewModel : ViewModel() {
                     addContactsMap["user_mobile_number"] = this.mobileNumber.value.toString()
                     addContactsMap["emergency_contact_name"] =  emergency_contact.emergency_contact_name
                     addContactsMap["emergency_contact_number"] = emergency_contact.emergency_contact_number
-                    addContactsMap["lat"] =  "70"
-                    addContactsMap["long"] = "50"
+                    addContactsMap["lat"] =  "0"
+                    addContactsMap["long"] = "0"
                     database.child("emergency_contact_details").push().setValue(addContactsMap)
                 }
 
@@ -166,13 +180,15 @@ class SignupViewModel : ViewModel() {
                     for (each_item_snapshot in dataSnapshot.children) {
                         val addContactsMap:HashMap<String,String> = HashMap<String,String>()
                         fcmToken = each_item_snapshot.child("fcm_token").value.toString()
+                        lat = each_item_snapshot.child("lat").value.toString()
+                        long = each_item_snapshot.child("long").value.toString()
                         addContactsMap["fcm_token"] = fcmToken
                         addContactsMap["uid"] = uid
                         addContactsMap["user_mobile_number"] = mobileNumber.value.toString()
                         addContactsMap["emergency_contact_name"] =  emergency_contact.emergency_contact_name
                         addContactsMap["emergency_contact_number"] = emergency_contact.emergency_contact_number
-                        addContactsMap["lat"] =  "70"
-                        addContactsMap["long"] = "50"
+                        addContactsMap["lat"] =  lat
+                        addContactsMap["long"] = long
                         database.child("emergency_contact_details").push().setValue(addContactsMap)
                     }
                 }

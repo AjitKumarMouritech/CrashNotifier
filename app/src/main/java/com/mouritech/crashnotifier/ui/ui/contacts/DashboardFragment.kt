@@ -73,7 +73,7 @@ class DashboardFragment : Fragment() {
                 val lat = it.lat
                 val lon = it.lon
 
-                if (lat!="null" && lon!="null"){
+                if (lat.isNotEmpty() && lon.isNotEmpty() && lat!="null" && lon!="null"){
                     markerOptions.position(LatLng( lat.toDouble(),lon.toDouble()))
                     markerOptions.title(it.emergency_contact_name)
                     mMap.animateCamera(CameraUpdateFactory.newLatLng(LatLng(it.lat.toDouble(),it.lon.toDouble())))
@@ -90,8 +90,8 @@ class DashboardFragment : Fragment() {
         activity.let {
             viewModel = ViewModelProvider(it!!).get(EmergencyContactViewModel::class.java)
             val preferences = requireActivity().getSharedPreferences("MySharedPref", AppCompatActivity.MODE_PRIVATE)
-            viewModel.getEmergencyContact2( Utils.getUserID(preferences),"")
-            //viewModel.getEmergencyContact()
+           // viewModel.getEmergencyContact2( Utils.getUserID(preferences),"")
+            viewModel.getEmergencyContact()
             viewModel._emergencyContacts.observe(viewLifecycleOwner, Observer {
                     emergencyContactList = viewModel._emergencyContacts.value!!
                 Log.d("first value ", emergencyContactList.get(0).toString())

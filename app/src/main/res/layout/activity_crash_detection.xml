@@ -13,7 +13,7 @@
             tools:context=".ui.SignupActivity">
 
 
-                <TextView
+                <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/tv_header"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
@@ -21,9 +21,6 @@
                     style="@style/HeadingWhite"
                     android:text="@string/crash_detect"
                     android:gravity="center"
-                    android:textColor="#333333"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
                     android:background="@color/button_blue"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -40,7 +37,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_header">
-                        <TextView
+                        <androidx.appcompat.widget.AppCompatTextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/crash_detect_text"

@@ -17,6 +17,7 @@ import android.speech.tts.TextToSpeech
 import android.telephony.SmsManager
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
@@ -189,6 +190,10 @@ class CrashDetection : AppCompatActivity() /*, SensorEventListener*/ {
                     }else{
                         viewModel.sendNotification("Crash happening with your friend","Some Emergency", Utils.getUserID(preferences), Utils.mobileNumber(preferences),
                             lat, lon, emergencyContact.fcm_token)
+                        if (checkPermissionForSMS(this@CrashDetection)) {
+                            emergencyNumber = emergencyContact.emergency_contact_number
+                            sendSMS(lat,lon, emergencyContact.emergency_contact_number)
+                        }
                     }
                     viewModel._notificationResponse.observe(this@CrashDetection, Observer {
                        // Toast.makeText(this@CrashDetection, it, Toast.LENGTH_SHORT).show();
@@ -196,11 +201,25 @@ class CrashDetection : AppCompatActivity() /*, SensorEventListener*/ {
                     })
                     pauseOffSet =0
                 }
-
-
+                displayPopup()
             }
         }.start()
     }
+
+    private fun displayPopup() {
+        val alertDialog: AlertDialog.Builder = AlertDialog.Builder(this)
+        alertDialog.setTitle(getString(R.string.alert_notifier_title))
+        alertDialog.setMessage(getString(R.string.alert_notifier_description))
+        alertDialog.setPositiveButton(
+            getString(R.string.ok)
+        ) { dialog, _ ->
+            dialog.cancel()
+        }
+        val alert: AlertDialog = alertDialog.create()
+        alert.setCanceledOnTouchOutside(false)
+        alert.show()
+    }
+
     private fun pauseTimer(){
         if (countdown_timer!= null){
             countdown_timer!!.cancel()

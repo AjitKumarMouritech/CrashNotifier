@@ -64,7 +64,7 @@ class Main2Activity : AppCompatActivity(), SensorEventListener {
 
         startService(this, "Crash Notifier Service is in running...")
 
-
+        mLocationRequest = LocationRequest()
         if (checkPermissionForLocation(this)) {
             mLocationRequest = LocationRequest()
 

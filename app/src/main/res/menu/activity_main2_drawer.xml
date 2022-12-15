@@ -6,20 +6,24 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_menu_nearest_emergency_contacts"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="@string/nav_menu_nearest_emergency_contacts" />
+            android:icon="@drawable/dashboard"
+            android:title="@string/nav_menu_nearest_emergency_contacts"
+            />
         <item
             android:id="@+id/nav_menu_hospitals_list"
             android:icon="@drawable/ic_menu_gallery"
             android:title="@string/menu_hospital_medical_shops_list"
-            android:visible="false"/>
+            android:visible="false"
+            />
         <item
             android:id="@+id/nav_menu_update_emergency_contacts"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_update_emergency_contacts" />
+            android:icon="@drawable/call"
+            android:title="@string/menu_update_emergency_contacts"
+            />
         <item
             android:id="@+id/nav_update_health_details"
-            android:icon="@color/button_blue"
-            android:title="@string/menu_update_health_details"/>
+            android:icon="@drawable/healthcare"
+            android:title="@string/menu_update_health_details"
+            />
     </group>
 </menu>

@@ -143,7 +143,7 @@ class Main2Activity : AppCompatActivity(), SensorEventListener {
     private fun crashDetection(xValue: Double, yValue: Double, zValue: Double) {
 
         val fallThreshold = Math.sqrt((xValue * xValue + yValue * yValue + zValue * zValue) as Double)
-        if (fallThreshold < 0.5f) {
+        if (fallThreshold < 0.35f) {
             crashDetected()
         }
        /* var rootSquare = Math.sqrt(Math.pow(xValue, 2.0) + Math.pow(yValue, 2.0) + Math.pow(zValue, 2.0

@@ -46,7 +46,7 @@
     <string name="done">Done</string>
 
 
-    <string name="nav_menu_nearest_emergency_contacts">Emergency Contacts</string>
+    <string name="nav_menu_nearest_emergency_contacts">Dashboard</string>
     <string name="menu_hospital_medical_shops_list">Hospitals and Medical shops</string>
     <string name="menu_update_emergency_contacts">Update Emergency Contacts</string>
     <string name="menu_update_health_details">Update Health Details</string>

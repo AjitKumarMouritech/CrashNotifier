@@ -119,6 +119,8 @@ class EmergencyContactViewModel: ViewModel() {
         _emergencyContacts.value=emergencyContactList
     }
 
+
+
     fun updateEmergencyContacts(
         emergencyContactList: ArrayList<EmergencyContacts>,
         mobileNumber: String,

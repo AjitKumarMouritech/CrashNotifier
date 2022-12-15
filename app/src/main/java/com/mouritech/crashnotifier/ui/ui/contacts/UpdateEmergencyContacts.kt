@@ -67,7 +67,7 @@ class UpdateEmergencyContacts : Fragment() {
             viewModel._emergencyContacts.observe(viewLifecycleOwner, Observer {data->
                 emergencyContactList = viewModel._emergencyContacts.value!!
                 binding.contactsRV.layoutManager = LinearLayoutManager(requireActivity())
-                val adapter = ContactDetails(data)
+                val adapter = ContactDetails(data,"update_emergency_contacts")
                 binding.contactsRV.adapter = adapter
                 Utils.stopProgressBar(progress)
             })

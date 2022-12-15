@@ -203,4 +203,7 @@ class LoginActivity  : AppCompatActivity() {
         lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
         lateinit var progress : ProgressDialog
     }
+    override fun onBackPressed() {
+        finish()
+    }
 }

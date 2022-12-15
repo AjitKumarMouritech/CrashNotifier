@@ -54,7 +54,7 @@ class DashboardFragment : Fragment() {
         mapFragment.getMapAsync {
             googleMap -> mMap = googleMap
             mapReady = true
-            updateMap()
+           // updateMap()
         }
         return rootView
     }
@@ -78,30 +78,39 @@ class DashboardFragment : Fragment() {
                 // Setting the position for the marker
                 val lat = it.lat
                 val lon = it.lon
+                if(lat != "null") {
+                    markerOptions.position(LatLng(lat.toDouble(), lon.toDouble()))
 
-                markerOptions.position(LatLng( lat.toDouble(),lon.toDouble()))
 
-                // Setting the title for the marker.
-                // This will be displayed on taping the marker
+                    // Setting the title for the marker.
+                    // This will be displayed on taping the marker
 
-                // Setting the title for the marker.
-                // This will be displayed on taping the marker
-                markerOptions.title(it.lat + " : " + it.lon)
+                    // Setting the title for the marker.
+                    // This will be displayed on taping the marker
+                    markerOptions.title(it.lat + " : " + it.lon)
 
-                // Clears the previously touched position
+                    // Clears the previously touched position
 
-                // Clears the previously touched position
+                    // Clears the previously touched position
 
-                // Animating to the touched position
+                    // Animating to the touched position
 
-                // Animating to the touched position
+                    // Animating to the touched position
 
-                mMap.animateCamera(CameraUpdateFactory.newLatLng(LatLng(it.lat.toDouble(),it.lon.toDouble())))
+                    mMap.animateCamera(
+                        CameraUpdateFactory.newLatLng(
+                            LatLng(
+                                it.lat.toDouble(),
+                                it.lon.toDouble()
+                            )
+                        )
+                    )
 
-                // Placing a marker on the touched position
+                    // Placing a marker on the touched position
 
-                // Placing a marker on the touched position
-                mMap.addMarker(markerOptions)
+                    // Placing a marker on the touched position
+                    mMap.addMarker(markerOptions)
+                }
             }
         }
     }

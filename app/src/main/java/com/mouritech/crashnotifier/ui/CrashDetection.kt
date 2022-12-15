@@ -186,10 +186,12 @@ class CrashDetection : AppCompatActivity() /*, SensorEventListener*/ {
                         if (checkPermissionForSMS(this@CrashDetection)) {
                             emergencyNumber = emergencyContact.emergency_contact_number
                             sendSMS(lat,lon, emergencyContact.emergency_contact_number)
+                            Log.e("SendSMS","send sms only")
                         }
                     }else{
                         viewModel.sendNotification("Crash happening with your friend","Some Emergency", Utils.getUserID(preferences), Utils.mobileNumber(preferences),
                             lat, lon, emergencyContact.fcm_token)
+                        Log.e("SendSMS","send sms and notification $emergencyContact.fcm_token")
                         if (checkPermissionForSMS(this@CrashDetection)) {
                             emergencyNumber = emergencyContact.emergency_contact_number
                             sendSMS(lat,lon, emergencyContact.emergency_contact_number)

@@ -72,7 +72,7 @@
     <string name="enter_hd">Enter health details</string>
 
     <string name="No">No</string>
-    <string name="crash_detect_text">It\'s look like you have been in a crash</string>
+    <string name="crash_detect_text">it\'s looks like you\'ve been in a crash</string>
     <string name="crash_detect">Crash Detected</string>
     <string name="emergency">Emergency</string>
     <string name="callnow">Call Now</string>

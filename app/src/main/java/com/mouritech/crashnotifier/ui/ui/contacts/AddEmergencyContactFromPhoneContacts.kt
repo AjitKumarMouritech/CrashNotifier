@@ -28,7 +28,6 @@ import io.michaelrocks.libphonenumber.android.PhoneNumberUtil
 
 class AddEmergencyContactFromPhoneContacts : AppCompatActivity() {
     lateinit var binding: ActivityAddEmergencyContactBinding
-    lateinit var viewModel: EmergencyContactViewModel
     private var namesArrayList: ArrayList<String>? = null
     private var numbersArrayList: ArrayList<String>? = null
     private val PERMISSIONS_REQUEST_READ_CONTACTS = 100
@@ -70,7 +69,7 @@ class AddEmergencyContactFromPhoneContacts : AppCompatActivity() {
         }
 
         viewModel._emergencyContacts.observe(this, Observer {data->
-            val adapter = ContactDetails(data)
+            val adapter = ContactDetails(data,"add_emergency_contacts_phone_book")
             binding.contactsRV.adapter = adapter
             adapter.notifyDataSetChanged()
             binding.contactName1.setText("")
@@ -93,9 +92,17 @@ class AddEmergencyContactFromPhoneContacts : AppCompatActivity() {
     }
 
     private fun getPhoneNumberWithoutCountryCode(phoneNo: String): String? {
-        val phoneInstance: PhoneNumberUtil = PhoneNumberUtil.createInstance(this)
-        val phoneNumber = phoneInstance.parse(phoneNo, null)
-        return phoneInstance.getNationalSignificantNumber(phoneNumber)
+        var num : String
+        try{
+            val phoneInstance: PhoneNumberUtil = PhoneNumberUtil.createInstance(this)
+            val phoneNumber = phoneInstance.parse(phoneNo, null)
+            num = phoneInstance.getNationalSignificantNumber(phoneNumber)
+        }
+        catch (e:Exception){
+            num = phoneNo
+            e.printStackTrace()
+        }
+        return num
     }
 
     private fun checkDuplication() {
@@ -187,5 +194,11 @@ class AddEmergencyContactFromPhoneContacts : AppCompatActivity() {
     }
     companion object{
         lateinit var progress : ProgressDialog
+        lateinit var viewModel: EmergencyContactViewModel
+
+        fun remove(position:Int){
+            viewModel.emergencyContactList.removeAt(position)
+            viewModel._emergencyContacts.value = viewModel.emergencyContactList
+        }
     }
 }

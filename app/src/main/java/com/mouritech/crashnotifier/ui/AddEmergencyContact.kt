@@ -1,6 +1,7 @@
 package com.mouritech.crashnotifier.ui
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Location
@@ -26,7 +27,6 @@ import kotlin.collections.ArrayList
 
 class AddEmergencyContact : AppCompatActivity() {
     lateinit var binding: ActivityAddEmergencyContactBinding
-    lateinit var viewModel: EmergencyContactViewModel
     lateinit var mLastLocation: Location
     lateinit var lat: String
     lateinit var long: String
@@ -44,9 +44,11 @@ class AddEmergencyContact : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_emergency_contact)
 
         binding.contactsRV.layoutManager = LinearLayoutManager(this)
-        val adapter = ContactDetails(data)
+        adapter = ContactDetails(data,"signup_add_emergency_contacts")
         binding.contactsRV.adapter = adapter
         viewModel._emergencyContacts.value = ArrayList()
+
+
 
         mLocationRequest = LocationRequest()
         if (checkPermissionForLocation(this)) {
@@ -206,11 +208,21 @@ class AddEmergencyContact : AppCompatActivity() {
                 it[0].fcm_token
             )
         )
-        val adapter = ContactDetails(data)
+        val adapter = ContactDetails(data,"signup_add_emergency_contacts")
         binding.contactsRV.adapter = adapter
     }
 
     companion object{
         var data = ArrayList<EmergencyContacts>()
+        lateinit var viewModel: EmergencyContactViewModel
+        lateinit var adapter:ContactDetails
+
+        @SuppressLint("NotifyDataSetChanged")
+        fun remove (position:Int){
+            data.removeAt(position)
+            adapter.notifyDataSetChanged()
+            adapter.notifyItemChanged(position)
+            adapter.notifyItemRemoved(position)
+        }
     }
 }

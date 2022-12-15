@@ -130,10 +130,14 @@ class SignupActivity : AppCompatActivity() {
     }
     override fun onRestart() {
         if (AddEmergencyContact.data.isNotEmpty()){
-            val adapter = ContactDetails(AddEmergencyContact.data)
+            val adapter = ContactDetails(AddEmergencyContact.data,"signup_add_emergency_contacts")
             binding.contactsRV.adapter = adapter
         }
         super.onRestart()
+    }
+
+    override fun onBackPressed() {
+        startActivity(Intent(this,LoginActivity::class.java))
     }
     companion object{
         lateinit var progress : ProgressDialog

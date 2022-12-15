@@ -69,46 +69,14 @@ class DashboardFragment : Fragment() {
 
             emergencyContactList.forEach{
 
-                // Creating a marker
-                // Creating a marker
                 val markerOptions = MarkerOptions()
-
-                // Setting the position for the marker
-
-                // Setting the position for the marker
                 val lat = it.lat
                 val lon = it.lon
-                if(lat != "null") {
-                    markerOptions.position(LatLng(lat.toDouble(), lon.toDouble()))
 
-
-                    // Setting the title for the marker.
-                    // This will be displayed on taping the marker
-
-                    // Setting the title for the marker.
-                    // This will be displayed on taping the marker
-                    markerOptions.title(it.lat + " : " + it.lon)
-
-                    // Clears the previously touched position
-
-                    // Clears the previously touched position
-
-                    // Animating to the touched position
-
-                    // Animating to the touched position
-
-                    mMap.animateCamera(
-                        CameraUpdateFactory.newLatLng(
-                            LatLng(
-                                it.lat.toDouble(),
-                                it.lon.toDouble()
-                            )
-                        )
-                    )
-
-                    // Placing a marker on the touched position
-
-                    // Placing a marker on the touched position
+                if (lat!="null" && lon!="null"){
+                    markerOptions.position(LatLng( lat.toDouble(),lon.toDouble()))
+                    markerOptions.title(it.emergency_contact_name)
+                    mMap.animateCamera(CameraUpdateFactory.newLatLng(LatLng(it.lat.toDouble(),it.lon.toDouble())))
                     mMap.addMarker(markerOptions)
                 }
             }
@@ -121,7 +89,9 @@ class DashboardFragment : Fragment() {
 
         activity.let {
             viewModel = ViewModelProvider(it!!).get(EmergencyContactViewModel::class.java)
-            viewModel.getEmergencyContact()
+            val preferences = requireActivity().getSharedPreferences("MySharedPref", AppCompatActivity.MODE_PRIVATE)
+            viewModel.getEmergencyContact2( Utils.getUserID(preferences),"")
+            //viewModel.getEmergencyContact()
             viewModel._emergencyContacts.observe(viewLifecycleOwner, Observer {
                     emergencyContactList = viewModel._emergencyContacts.value!!
                 Log.d("first value ", emergencyContactList.get(0).toString())

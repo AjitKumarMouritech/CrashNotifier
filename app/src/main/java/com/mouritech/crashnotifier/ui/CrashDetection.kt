@@ -110,7 +110,7 @@ class CrashDetection : AppCompatActivity() /*, SensorEventListener*/ {
     private fun getFCMTokenƒromfirebaseDB() {
         emergencyContactViewModel = ViewModelProvider(this@CrashDetection).get(EmergencyContactViewModel::class.java)
         val preferences = this.getSharedPreferences("MySharedPref", AppCompatActivity.MODE_PRIVATE)
-        emergencyContactViewModel.getEmergencyContact2( Utils.getUserID(preferences))
+        emergencyContactViewModel.getEmergencyContact2( Utils.getUserID(preferences),"")
         emergencyContactViewModel._emergencyContacts.observe(this@CrashDetection, Observer {
             emergencyContactList=it
             starTimer(pauseOffSet)

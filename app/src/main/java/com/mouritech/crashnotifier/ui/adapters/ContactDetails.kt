@@ -15,6 +15,7 @@ import com.mouritech.crashnotifier.data.model.EmergencyContacts
 import com.mouritech.crashnotifier.data.viewmodel.EmergencyContactViewModel
 import com.mouritech.crashnotifier.ui.AddEmergencyContact
 import com.mouritech.crashnotifier.ui.ui.contacts.AddEmergencyContactFromPhoneContacts
+import com.mouritech.crashnotifier.ui.ui.contacts.UpdateEmergencyContacts
 import com.mouritech.crashnotifier.utils.Utils
 
 class ContactDetails(
@@ -48,7 +49,7 @@ class ContactDetails(
                 holder.delete.visibility = View.VISIBLE
             }
             "update_emergency_contacts" -> {
-                holder.delete.visibility = View.GONE
+                holder.delete.visibility = View.VISIBLE
             }
             "add_emergency_contacts_phone_book" -> {
                 holder.delete.visibility = View.VISIBLE
@@ -63,7 +64,8 @@ class ContactDetails(
                     notifyDataSetChanged()
                 }
                 "update_emergency_contacts" -> {
-
+                    UpdateEmergencyContacts.deleteEmergencyContacts(position,mList[position].emergency_contact_number.toString())
+                    notifyDataSetChanged()
                 }
                 "add_emergency_contacts_phone_book" -> {
                     AddEmergencyContactFromPhoneContacts.remove(position)

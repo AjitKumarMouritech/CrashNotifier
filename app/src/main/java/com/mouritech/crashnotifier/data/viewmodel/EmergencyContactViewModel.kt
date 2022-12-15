@@ -29,6 +29,7 @@ class EmergencyContactViewModel: ViewModel() {
     val emergencyContacts: MutableLiveData<List<EmergencyContacts>>
             get()=_emergencyContacts
 
+
     fun getEmergencyContact(){
         //_emergencyContacts.value= repository.getEmergencyContact()
         emergencyContactList= ArrayList()
@@ -38,11 +39,13 @@ class EmergencyContactViewModel: ViewModel() {
         }
 
     }
-    fun getEmergencyContact2(userID: String) {
+    fun getEmergencyContact2(userID: String,text:String) {
 
         emergencyContactList= ArrayList()
+        _emergencyContacts= MutableLiveData<List<EmergencyContacts>>()
+
         val job= CoroutineScope(Dispatchers.IO).async {
-             getEmergencyContactList2(userID)
+             getEmergencyContactList2(userID,text)
         }
 
     }
@@ -66,6 +69,7 @@ class EmergencyContactViewModel: ViewModel() {
                     Log.d("item id ", emergencyContacts.toString())
                 }
                 _emergencyContacts.value=emergencyContactList
+
             }
 
             override fun onCancelled(error: DatabaseError) {
@@ -78,7 +82,7 @@ class EmergencyContactViewModel: ViewModel() {
     }
 
 
-    private suspend fun getEmergencyContactList2(userID: String):List<EmergencyContacts> {
+    private suspend fun getEmergencyContactList2(userID: String, text: String):List<EmergencyContacts> {
         val database = FirebaseDatabase.getInstance()
         val myRef = database.reference.child("emergency_contact_details")
         myRef.orderByChild("uid").equalTo(userID)
@@ -99,6 +103,10 @@ class EmergencyContactViewModel: ViewModel() {
                         Log.d("item id ", emergencyContacts.toString())
                     }
                     _emergencyContacts.value=emergencyContactList
+
+                    if (text=="delete"){
+                        UpdateEmergencyContacts.setData()
+                    }
                 }
 
                 override fun onCancelled(error: DatabaseError) {

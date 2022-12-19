@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.FirebaseApp
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.*
@@ -17,6 +18,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.messaging.FirebaseMessaging
 import com.mouritech.crashnotifier.R
 import com.mouritech.crashnotifier.data.viewmodel.LoginViewModel
 import com.mouritech.crashnotifier.data.viewmodel.SignupViewModel
@@ -31,6 +33,7 @@ class LoginActivity  : AppCompatActivity() {
     lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
     lateinit var loginViewModel: LoginViewModel
     lateinit var signupViewModel: SignupViewModel
+    lateinit var fcmToken : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -125,6 +128,7 @@ class LoginActivity  : AppCompatActivity() {
         auth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
+                    getFCMToken()
                     setUserID()
                     setUserName()
                     successfullyLoggedIn("LoggedIn",true)
@@ -153,8 +157,17 @@ class LoginActivity  : AppCompatActivity() {
                         for (each_item_snapshot in dataSnapshot.children) {
                             val sharedPreferences = getSharedPreferences("MySharedPref", MODE_PRIVATE)
                             val myEdit = sharedPreferences.edit()
+                            if (fcmToken!=each_item_snapshot.child("fcm_token").value.toString()){
+                                val map = HashMap<String, Any>()
+                                map["fcm_token"] = fcmToken
+                                myRef.updateChildren(map)
+                                myEdit.putString("fcm_token",fcmToken)
+
+                            }
+                            else{
+                                myEdit.putString("fcm_token",each_item_snapshot.child("fcm_token").value.toString())
+                            }
                             myEdit.putString("user_name",each_item_snapshot.child("user_name").value.toString())
-                            myEdit.putString("fcm_token",each_item_snapshot.child("fcm_token").value.toString())
                             myEdit.commit()
                         }
                     }
@@ -164,6 +177,24 @@ class LoginActivity  : AppCompatActivity() {
                 }
 
             })
+    }
+
+    private fun updateFCMToken() {
+
+    }
+
+    private fun getFCMToken(){
+         fcmToken =""
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (task.isSuccessful) {
+                fcmToken = task.result
+            }
+            else{
+                Log.w("TAG", "Fetching FCM registration token failed", task.exception)
+                return@OnCompleteListener
+            }
+            Log.d("Token", fcmToken)
+        })
     }
 
     private fun setUserID() {

@@ -89,9 +89,9 @@ class DashboardFragment : Fragment() {
 
         activity.let {
             viewModel = ViewModelProvider(it!!).get(EmergencyContactViewModel::class.java)
-            val preferences = requireActivity().getSharedPreferences("MySharedPref", AppCompatActivity.MODE_PRIVATE)
-            viewModel.getEmergencyContact2( Utils.getUserID(preferences),"")
-            //viewModel.getEmergencyContact()
+            //val preferences = requireActivity().getSharedPreferences("MySharedPref", AppCompatActivity.MODE_PRIVATE)
+            //viewModel.getEmergencyContact2( Utils.getUserID(preferences),"")
+            viewModel.getEmergencyContact()
             viewModel._emergencyContacts.observe(viewLifecycleOwner, Observer {
                     emergencyContactList = viewModel._emergencyContacts.value!!
                 Log.d("first value ", emergencyContactList.get(0).toString())

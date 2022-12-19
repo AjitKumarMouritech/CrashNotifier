@@ -54,7 +54,7 @@ class DashboardFragment : Fragment() {
         mapFragment.getMapAsync {
             googleMap -> mMap = googleMap
             mapReady = true
-            updateMap()
+           // updateMap()
         }
         return rootView
     }

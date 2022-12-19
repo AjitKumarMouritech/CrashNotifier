@@ -160,7 +160,7 @@ class LoginActivity  : AppCompatActivity() {
                             if (fcmToken!=each_item_snapshot.child("fcm_token").value.toString()){
                                 val map = HashMap<String, Any>()
                                 map["fcm_token"] = fcmToken
-                                myRef.updateChildren(map)
+                                each_item_snapshot.ref.updateChildren(map)
                                 myEdit.putString("fcm_token",fcmToken)
 
                             }

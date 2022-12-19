@@ -6,6 +6,8 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.text.Html
+import android.text.method.LinkMovementMethod
 import android.util.Log
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
@@ -35,6 +37,7 @@ class MainActivity : AppCompatActivity() {
     private val RECORD_REQUEST_CODE = 101
     private var lat:String=""
     private var lon:String=""
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
@@ -70,7 +73,10 @@ class MainActivity : AppCompatActivity() {
                     binding.tvDOB.text= element.dob
                     binding.tvHealthDetails.text= element.healthData
                     binding.tvMobile.text= element.mobileNumber
-                    binding.tvLatLon.text= "$lat $lon"
+                    val strUri = "http://maps.google.com/maps?q=loc:$lat,$lon"
+                    //binding.tvLatLon.text= strUri
+                    //binding.tvLatLon.movementMethod = LinkMovementMethod.getInstance()
+                    binding.tvLatLon.text = Html.fromHtml(strUri, Html.FROM_HTML_MODE_COMPACT);
                 }
             })
 

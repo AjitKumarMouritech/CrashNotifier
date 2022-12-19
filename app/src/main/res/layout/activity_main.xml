@@ -165,7 +165,9 @@
                     android:layout_height="wrap_content"
                     android:padding="10dp"
                     android:textColor="@color/red"
-                    android:textSize="12dp" />
+                    android:textSize="12dp"
+                    android:autoLink="web"
+                    android:linksClickable="true"/>
             </LinearLayout>
 
             <Button
